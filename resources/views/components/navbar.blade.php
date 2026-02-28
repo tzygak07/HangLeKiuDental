@@ -272,6 +272,59 @@
         top: 48px;
         right: 0;
     }
+
+    /* ===== RESPONSIVE: Mobile ===== */
+    @media (max-width: 768px) {
+        .admin-navbar {
+            padding: 16px;
+            margin: -72px -16px 20px -16px;
+            padding-left: 64px;
+        }
+
+        .navbar-right {
+            gap: 4px;
+        }
+
+        .navbar-dropdown-btn {
+            padding: 6px 10px;
+            font-size: 11px;
+            border-radius: 16px;
+        }
+
+        .navbar-dropdown-btn span {
+            max-width: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .navbar-dropdown-btn svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .navbar-divider {
+            margin: 0 2px;
+        }
+
+        .navbar-icon-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        .navbar-icon-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .navbar-hds-logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        .navbar-dropdown-menu {
+            right: -16px;
+        }
+    }
 </style>
 
 <script>

@@ -273,10 +273,28 @@
         .mc-tabs {
             flex-direction: row;
             min-width: auto;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .mc-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 12px;
+            font-size: 13px;
         }
 
         .mc-row {
             flex-direction: column;
+        }
+
+        .mc-card-actions {
+            flex-wrap: wrap;
+        }
+
+        .mc-btn {
+            font-size: 11px;
+            padding: 8px 14px;
         }
     }
 </style>
