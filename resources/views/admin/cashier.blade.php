@@ -66,11 +66,11 @@
                                 <div class="invoice-date">25 Februari 2026</div>
                                 <div class="invoice-number">INV000294</div>
                             </td>
-                            <td>Bpk Claudy</td>
+                            <td>Bpk Johndoe</td>
                             <td>
                                 <div class="keterangan-grid">
                                     <span class="ket-label">Tenaga Medis</span>
-                                    <span class="ket-value">drg. Ria Budiati Sp. Ortho</span>
+                                    <span class="ket-value">drg. Budi Sp. Ortho</span>
                                     <span class="ket-label">Tindakan</span>
                                     <span class="ket-value">Pencetakan Alginat<br>Retainer Hawley</span>
                                     <span class="ket-label">Pembayaran</span>

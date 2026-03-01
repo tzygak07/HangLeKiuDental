@@ -35,7 +35,7 @@
             flex-direction: column;
             align-items: center;
             padding: 16px 0;
-            z-index: 50;
+            z-index: 80;
             transition: width 0.3s ease;
             overflow: hidden;
         }
