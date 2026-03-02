@@ -22,7 +22,7 @@
 
         .card {
             background: white;
-            padding: 48px 44px;
+            padding: 36px 36px;
             border-radius: 20px;
             box-shadow: 0 4px 24px rgba(88, 44, 12, 0.08);
             width: 480px;
@@ -30,7 +30,7 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .logo-container {
@@ -40,8 +40,8 @@
         }
 
         .logo-icon {
-            width: 140px;
-            height: 140px;
+            width: 100px;
+            height: 100px;
             border-radius: 20px;
             overflow: hidden;
             display: flex;
@@ -63,7 +63,7 @@
         }
 
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             position: relative;
         }
 
@@ -144,7 +144,7 @@
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 13px;
             background: #582C0C;
             color: #F7F7F7;
             border: none;
@@ -170,7 +170,7 @@
         /* Divider */
         .divider {
             text-align: center;
-            margin: 18px 0;
+            margin: 14px 0;
             font-size: 14px;
             color: #6B513E;
             opacity: 0.6;
@@ -207,7 +207,7 @@
 
         .muted {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 16px;
             font-size: 14px;
             color: #6B513E;
         }

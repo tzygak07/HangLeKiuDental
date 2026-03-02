@@ -22,7 +22,7 @@
 
         .card {
             background: white;
-            padding: 48px 44px;
+            padding: 28px 36px;
             border-radius: 20px;
             box-shadow: 0 4px 24px rgba(88, 44, 12, 0.08);
             width: 480px;
@@ -30,7 +30,7 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 16px;
         }
 
         .logo-container {
@@ -40,8 +40,8 @@
         }
 
         .logo-icon {
-            width: 140px;
-            height: 140px;
+            width: 80px;
+            height: 80px;
             border-radius: 20px;
             overflow: hidden;
             display: flex;
@@ -56,7 +56,7 @@
         }
 
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 14px;
             position: relative;
         }
 
@@ -65,7 +65,7 @@
             font-size: 14px;
             font-weight: 600;
             color: #582C0C;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .form-group input {
@@ -120,7 +120,7 @@
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: #582C0C;
             color: #F7F7F7;
             border: none;
@@ -130,7 +130,7 @@
             font-family: 'Instrument Sans', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .btn:hover {
@@ -145,7 +145,7 @@
 
         .muted {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 12px;
             font-size: 14px;
             color: #582C0C;
         }
