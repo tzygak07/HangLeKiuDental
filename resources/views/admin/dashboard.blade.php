@@ -236,13 +236,13 @@
         margin-bottom: 20px;
     }
     .dash-title {
-        font-size: 24px;
+        font-size: 30px;
         font-weight: 700;
         color: #582C0C;
         margin: 0;
     }
     .dash-subtitle {
-        font-size: 14px;
+        font-size: 18.75px;
         color: #C58F59;
         margin: 4px 0 0 0;
     }
@@ -464,7 +464,7 @@
         margin-bottom: 8px;
     }
     .stat-title {
-        font-size: 12px;
+        font-size: 13px;
         color: #582C0C;
         font-weight: 600;
         margin: 0 0 8px 0;
@@ -472,7 +472,7 @@
     .stat-value-row {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 13px;
     }
     .stat-value {
         font-size: 20px;
