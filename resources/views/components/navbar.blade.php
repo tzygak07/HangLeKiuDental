@@ -107,7 +107,7 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: #6B513E;
+        background: #582C0C;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -130,7 +130,7 @@
         align-items: center;
         gap: 8px;
         padding: 8px 16px;
-        background: linear-gradient(135deg, #C58F59 0%, #6B513E 100%);
+        background: #582C0C;
         color: #F7F7F7;
         border: none;
         border-radius: 20px;

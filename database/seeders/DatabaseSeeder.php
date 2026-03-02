@@ -12,9 +12,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin',
+        \App\Models\User::create([
+            'name' => 'Admin HangLeKiu',
             'email' => 'admin@hanglekiu.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'admin',
+        ]);
+
+        \App\Models\User::create([
+            'name' => 'User Pasien',
+            'email' => 'user@hanglekiu.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'user',
         ]);
     }
 }

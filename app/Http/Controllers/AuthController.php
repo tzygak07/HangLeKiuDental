@@ -23,12 +23,26 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            
+            if (Auth::user()->role === 'admin') {
+                return redirect()->intended('/admin/dashboard');
+            }
+            return redirect()->intended('/user/dashboard');
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
+    }
+
+    public function showAdminLogin()
+    {
+        return view('auth.admin-login');
+    }
+
+    public function showAdminRegister()
+    {
+        return view('auth.admin-register');
     }
 
     public function showRegister()
@@ -48,11 +62,12 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => 'user', 
         ]);
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/user/dashboard');
     }
 
     public function logout(Request $request)
