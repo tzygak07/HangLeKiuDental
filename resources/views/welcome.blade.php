@@ -53,7 +53,7 @@
     </section>
 
     {{-- Section: Pelayanan & Profil Dokter --}}
-    <section id="pelayanan" class="w-full bg-[var(--color-background-primary)] h-screen flex flex-col overflow-hidden">
+    <section id="pelayanan" class="w-full bg-[var(--color-background-primary)] h-screen flex flex-col">
 
         {{-- Pelayanan — 1/4 --}}
         <div class="w-full py-6">
@@ -165,6 +165,137 @@
             </div>
         </div>
 
+    </section>
+
+    {{-- Section: Layanan & Perawatan --}}
+    <section class="w-full bg-[#C58F59] min-h-screen flex flex-col justify-center py-16">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+            
+            {{-- Section Header --}}
+            <div class="text-center mb-12">
+                <h2 class="text-[var(--fs-xl)] font-semibold text-[#582C0C] mb-4">
+                    Layanan & Perawatan
+                </h2>
+                <p class="text-[var(--fs-md)] font-normal text-[#582C0C] max-w-3xl mx-auto">
+                    Layanan dental menyeluruh yang ditangani oleh tim profesional dengan standar medis terbaik.
+                </p>
+            </div>
+
+            {{-- Cards Grid --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                
+                {{-- Card 1: Scaling & Polishing --}}
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col min-h-[360px]">
+                    <div class="w-20 h-20 mb-4 mx-auto">
+                        <img src="{{ asset('images/gigi.svg') }}" alt="Icon" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-[var(--fs-lg)] font-bold text-[#C58F59] mb-3 text-center">Scaling & Polishing</h3>
+                    <p class="text-[var(--fs-md)] font-normal text-[#582C0C] leading-relaxed mb-4 flex-1 text-center">
+                        Pembersihan karang gigi profesional untuk menjaga kesehatan gusi dan gigi.
+                    </p>
+                    <button class="text-[var(--fs-md)] font-medium text-[#C58F59] flex items-center gap-2 hover:gap-3 transition-all ml-auto">
+                        Info Selengkapnya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Card 2: Tambal Gigi --}}
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col min-h-[360px]">
+                    <div class="w-20 h-20 mb-4 mx-auto">
+                        <img src="{{ asset('images/gigi.svg') }}" alt="Icon" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-[var(--fs-lg)] font-bold text-[#C58F59] mb-3 text-center">Tambal Gigi</h3>
+                    <p class="text-[var(--fs-md)] font-normal text-[#582C0C] leading-relaxed mb-4 flex-1 text-center">
+                        Perawatan restorasi gigi berlubang dengan bahan berkualitas tinggi.
+                    </p>
+                    <button class="text-[var(--fs-md)] font-medium text-[#C58F59] flex items-center gap-2 hover:gap-3 transition-all ml-auto">
+                        Info Selengkapnya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Card 3: Cabut Gigi --}}
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col min-h-[360px]">
+                    <div class="w-20 h-20 mb-4 mx-auto">
+                        <img src="{{ asset('images/gigi.svg') }}" alt="Icon" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-[var(--fs-lg)] font-bold text-[#C58F59] mb-3 text-center">Cabut Gigi</h3>
+                    <p class="text-[var(--fs-md)] font-normal text-[#582C0C] leading-relaxed mb-4 flex-1 text-center">
+                        Prosedur pencabutan gigi yang aman dan minim rasa sakit.
+                    </p>
+                    <button class="text-[var(--fs-md)] font-medium text-[#C58F59] flex items-center gap-2 hover:gap-3 transition-all ml-auto">
+                        Info Selengkapnya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Card 4: Pemasangan Behel --}}
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col min-h-[360px]">
+                    <div class="w-20 h-20 mb-4 mx-auto">
+                        <img src="{{ asset('images/gigi.svg') }}" alt="Icon" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-[var(--fs-lg)] font-bold text-[#C58F59] mb-3 text-center">Pemasangan Behel</h3>
+                    <p class="text-[var(--fs-md)] font-normal text-[#582C0C] leading-relaxed mb-4 flex-1 text-center">
+                        Ortodonti untuk merapikan susunan gigi dengan hasil optimal.
+                    </p>
+                    <button class="text-[var(--fs-md)] font-medium text-[#C58F59] flex items-center gap-2 hover:gap-3 transition-all ml-auto">
+                        Info Selengkapnya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Card 5: Veneer Gigi --}}
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col min-h-[360px]">
+                    <div class="w-20 h-20 mb-4 mx-auto">
+                        <img src="{{ asset('images/gigi.svg') }}" alt="Icon" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-[var(--fs-lg)] font-bold text-[#C58F59] mb-3 text-center">Veneer Gigi</h3>
+                    <p class="text-[var(--fs-md)] font-normal text-[#582C0C] leading-relaxed mb-4 flex-1 text-center">
+                        Lapisan tipis untuk mempercantik tampilan gigi Anda.
+                    </p>
+                    <button class="text-[var(--fs-md)] font-medium text-[#C58F59] flex items-center gap-2 hover:gap-3 transition-all ml-auto">
+                        Info Selengkapnya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Card 6: Crown & Bridge --}}
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col min-h-[360px]">
+                    <div class="w-20 h-20 mb-4 mx-auto">
+                        <img src="{{ asset('images/gigi.svg') }}" alt="Icon" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-[var(--fs-lg)] font-bold text-[#C58F59] mb-3 text-center">Crown & Bridge</h3>
+                    <p class="text-[var(--fs-md)] font-normal text-[#582C0C] leading-relaxed mb-4 flex-1 text-center">
+                        Restorasi gigi permanen dengan mahkota dan jembatan gigi.
+                    </p>
+                    <button class="text-[var(--fs-md)] font-medium text-[#C58F59] flex items-center gap-2 hover:gap-3 transition-all ml-auto">
+                        Info Selengkapnya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+
+            {{-- Button Layanan Lainnya --}}
+            <div class="flex justify-center">
+                <button class="px-8 py-3 bg-[#C58F59] hover:bg-[#C58F59]/90 text-white text-base font-semibold rounded-full transition-all duration-200 hover:shadow-lg">
+                    Layanan Lainnya
+                </button>
+            </div>
+
+        </div>
     </section>
 
 </body>
