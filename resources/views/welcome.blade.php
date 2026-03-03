@@ -5,74 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hanglekiu Dental — Selamat Datang</title>
     <meta name="description" content="Hanglekiu Dental — Klinik gigi terpercaya. Login atau daftar untuk mengakses layanan kami.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        body { font-family: 'Instrument Sans', sans-serif; }
-    </style>
 </head>
-<body class="bg-surface font-sans text-dark m-0 min-h-screen flex flex-col relative">
-
-    {{-- Decorative background --}}
-    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-amber-50">
-        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-amber-700/10 blur-3xl"></div>
-        <div class="absolute top-1/2 -left-48 w-[600px] h-[600px] rounded-full bg-amber-600/5 blur-3xl"></div>
-    </div>
+<body class="font-sans text-[var(--font-color-primary)] m-0 min-h-screen flex flex-col relative">
 
     {{-- Navbar --}}
-    <nav class="w-full px-6 md:px-10 py-5 flex items-center justify-between z-10 relative">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-orange-900 flex items-center justify-center text-xl shadow-md">
-                <span class="text-white">🦷</span>
-            </div>
-            <span class="text-2xl font-bold text-orange-950 tracking-tight">Hanglekiu Dental</span>
+    @include('components.navbarWelcome')
+
+    {{-- Hero Section --}}
+    <section class="relative w-full h-screen flex items-end">
+        {{-- Background Image --}}
+        <div class="absolute inset-0 z-0">
+            <img src="{{ asset('images/bg-homepage.png') }}" alt="Hanglekiu Dental Specialist"
+                 class="w-full h-full object-cover">
+            {{-- Gradient overlay bottom --}}
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
         </div>
-    </nav>
 
-    {{-- Main Content --}}
-    <main class="flex-1 flex flex-col items-center justify-center px-6 pb-20 relative z-10">
-        <div class="w-full max-w-2xl text-center">
-            <a href="{{ route('registration.form') }}"
-                class="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 px-6 rounded-lg transition duration-300 inline-block">
-                + Daftar Kunjungan
-            </a>
-            
-            <div class="mb-12">
-                <div class="inline-flex items-center gap-2 bg-white/80 text-orange-950 text-xs font-bold px-5 py-2.5 rounded-full mb-8 backdrop-blur-sm border border-orange-900/10 shadow-sm">
-                    <span class="w-2.5 h-2.5 rounded-full bg-orange-600 animate-pulse"></span>
-                    Klinik Gigi Terpercaya & Profesional
-                </div>
-                
-            
+        {{-- Hero Content --}}
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-9 pb-36 md:pb-44">
+            <h1 class="text-3xl md:text-[42px] font-bold text-white leading-tight mb-4">
+                Hanglekiu Dental Specialist
+            </h1>
 
-                <h1 class="text-5xl md:text-6xl font-extrabold text-orange-950 leading-tight mb-6">
-                    Senyum Sehat,<br>
-                    <span class="text-orange-700">Hidup Bahagia</span>
-                </h1>
-                
-                <p class="text-orange-900/80 text-lg md:text-xl max-w-lg mx-auto leading-relaxed mb-10 font-medium">
-                    Selamat datang di Hanglekiu Dental. Mulai perjalanan perawatan gigi terbaik Anda bersama tim spesialis kami hari ini.
-                </p>
+            <p class="text-base md:text-xl font-medium text-white/90 max-w-4xl leading-relaxed mb-8">
+                Wujudkan Senyum Ideal Anda Melalui Dedikasi Tim Profesional Kami Yang Menghadirkan<br>
+                Standar Perawatan Gigi Dengan Keahlian Dan Presisi Medis Terbaik.
+            </p>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="{{ route('login') }}" class="w-full sm:w-auto px-8 py-4 bg-orange-900 hover:bg-orange-950 text-white rounded-xl font-bold text-lg shadow-lg shadow-orange-900/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex items-center justify-center gap-2">
-                        Masuk sebagai Pasien
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-                        </svg>
-                    </a>
+            <div class="flex flex-wrap items-center gap-4">
+                {{-- Buat Janji Temu → /registration --}}
+                <a href="{{ route('registration.form') }}"
+                   class="px-8 py-3 bg-primary hover:bg-primary/90 text-white text-base md:text-lg font-medium rounded-full transition-all duration-200 hover:shadow-lg">
+                    Buat Janji Temu
+                </a>
+
+                {{-- Hubungi Kami --}}
+                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener"
+                   class="px-8 py-3 bg-primary hover:bg-primary/90 text-white text-base md:text-lg font-medium rounded-full transition-all duration-200 hover:shadow-lg flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    Hubungi Kami
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {{-- Section: Pelayanan & Profil Dokter --}}
+    <section id="pelayanan" class="w-full bg-[var(--color-background-primary)] h-screen flex flex-col overflow-hidden">
+
+        {{-- Pelayanan — 1/4 --}}
+        <div class="w-full py-6">
+            <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    {{-- Card 1: Indah Alami --}}
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-[#C58F59] rounded-xl flex items-center justify-center overflow-hidden">
+                            <img src="{{ asset('images/indah.svg') }}" alt="Indah Alami" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[var(--fs-lg)] font-bold text-[var(--font-color-primary)] mb-2">Indah Alami</h3>
+                        <p class="text-sm font-normal text-[var(--font-color-secondary)] leading-relaxed">
+                            Perpaduan kedokteran mutakhir dan sentuhan seni untuk hasil restorasi yang fungsional serta indah alami.
+                        </p>
+                    </div>
+
+                    {{-- Card 2: Ramah Terstandarisasi --}}
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-[#C58F59] rounded-xl flex items-center justify-center overflow-hidden">
+                            <img src="{{ asset('images/ramah.svg') }}" alt="Ramah Terstandarisasi" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[var(--fs-lg)] font-bold text-[var(--font-color-primary)] mb-2">Ramah Terstandarisasi</h3>
+                        <p class="text-sm font-normal text-[var(--font-color-secondary)] leading-relaxed">
+                            Pengalaman dental menenangkan melalui layanan personal dan privasi mutlak guna menghargai waktu berharga Anda.
+                        </p>
+                    </div>
+
+                    {{-- Card 3: Teknologi Mutakhir --}}
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-[#C58F59] rounded-xl flex items-center justify-center overflow-hidden">
+                            <img src="{{ asset('images/teknologi.svg') }}" alt="Teknologi Mutakhir" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-[var(--fs-lg)] font-bold text-[var(--font-color-primary)] mb-2">Teknologi Mutakhir</h3>
+                        <p class="text-sm font-normal text-[var(--font-color-secondary)] leading-relaxed">
+                            Pemanfaatan teknologi dental kelas dunia guna memastikan hasil perawatan yang akurat, aman, dan tanpa trauma.
+                        </p>
+                    </div>
+
                 </div>
             </div>
-
         </div>
-    </main>
 
-    {{-- Footer --}}
-    <footer class="pb-8 text-center relative z-10 w-full px-6">
-        <p class="text-sm font-medium text-orange-900/50">&copy; {{ date('Y') }} Hanglekiu Dental. All rights reserved.</p>
-    </footer>
+        {{-- Profil Dokter — 3/4 --}}
+        <div id="klinik" class="w-full flex-1">
+            <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 h-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center h-full">
+
+                    {{-- Left: Doctor Image --}}
+                    <div class="relative flex justify-center items-end h-full">
+                        {{-- Background decorative badges --}}
+                        <div class="absolute top-8 left-8 w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center">
+                            <img src="{{ asset('images/logo-hds.png') }}" alt="Logo" class="w-10 h-10 object-contain">
+                        </div>
+                        <div class="absolute top-8 right-12 w-16 h-16 bg-[var(--font-color-primary)]/10 rounded-full flex items-center justify-center">
+                            <img src="{{ asset('images/logo-hds.png') }}" alt="Badge" class="w-10 h-10 object-contain">
+                        </div>
+
+                        {{-- Doctor photo --}}
+                        <div class="w-full max-w-lg">
+                            <img src="{{ asset('images/budok.png') }}" alt="Dokter Spesialis"
+                                 class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+
+                    {{-- Right: Doctor Info --}}
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-[var(--font-color-primary)] leading-tight mb-1">
+                            Jenny Wilson Sp.Ort
+                        </h2>
+                        <p class="text-base font-bold text-[var(--font-color-secondary)] mb-6">
+                            <span class="italic">Spesialis Orthodonti</span> &nbsp;|&nbsp; No. STR: 3122100318012345
+                        </p>
+
+                        <p class="text-[var(--fs-md)] font-normal text-[var(--font-color-secondary)] leading-relaxed mb-5 text-justify">
+                            Lulusan Universitas Indonesia Yang Kemudian Mendalami Spesialisasi Di University Of Adelaide, Beliau Telah Berdedikasi Selama Lebih Dari 12 Tahun Dalam Menangani Kasus Maloklusi Kompleks. Keahlian Beliau Berfokus Pada Penyelarasan Struktur Wajah Melalui Perpaduan Presisi Medis Dan Teknologi Ortodonti Terkini Untuk Menciptakan Profil Senyum Yang Harmonis Serta Fungsional.
+                        </p>
+
+                        {{-- Social Media --}}
+                        <div class="flex items-center gap-3 mb-4">
+                            <a href="#" class="w-7 h-7 bg-[var(--font-color-primary)] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-7 h-7 bg-[var(--font-color-primary)] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        {{-- Navigation Arrows --}}
+                        <div class="flex items-center gap-3">
+                            <button class="px-8 py-2 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center transition-all duration-200 text-white">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+                                </svg>
+                            </button>
+                            <button class="px-8 py-2 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center transition-all duration-200 text-white">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
 
 </body>
 </html>
