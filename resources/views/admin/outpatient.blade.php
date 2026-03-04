@@ -6,226 +6,803 @@
 @endsection
 
 @section('content')
-<div class="rj-container">
+    @php
+        $today = today()->toDateString();
+        $isToday = $date === $today;
+        $selectedDoctorId = request('doctor_id');
+        $viewMode = $selectedDoctorId ? 'single' : 'all';
+        $selectedDoctor = $selectedDoctorId ? $doctors->find($selectedDoctorId) : null;
 
-    {{-- Page Header --}}
-    <div class="rj-header">
-        <div class="rj-title-area">
-            <h1 class="rj-title">Rawat Jalan</h1>
-            <p class="rj-subtitle">hanglekiu dental specialist</p>
-        </div>
-
-        {{-- Status Legend --}}
-        <div class="rj-status-legend">
-            <span class="rj-status-item"><span class="rj-dot" style="background:#EF4444"></span> Pending</span>
-            <span class="rj-status-item"><span class="rj-dot" style="background:#F59E0B"></span> Confirmed</span>
-            <span class="rj-status-item"><span class="rj-dot" style="background:#8B5CF6"></span> Waiting</span>
-            <span class="rj-status-item"><span class="rj-dot" style="background:#3B82F6"></span> Engaged</span>
-            <span class="rj-status-item"><span class="rj-dot" style="background:#84CC16"></span> Succeed</span>
-        </div>
-
-        {{-- Navigasi Tanggal --}}
-        <div class="rj-header-actions">
-            <div class="rj-date-nav">
-                <a href="{{ route('admin.outpatient', ['date' => \Carbon\Carbon::parse($date)->subDay()->toDateString()]) }}" class="rj-icon-btn">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-                <div class="rj-date-text">
-                    <span class="rj-date-day">{{ $carbon->locale('id')->isoFormat('dddd') }}</span>
-                    <span class="rj-date-full">{{ $carbon->locale('id')->isoFormat('D MMMM YYYY') }}</span>
-                </div>
-                <a href="{{ route('admin.outpatient', ['date' => \Carbon\Carbon::parse($date)->addDay()->toDateString()]) }}" class="rj-icon-btn">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-            <a href="{{ route('admin.outpatient') }}" class="rj-btn-today">HARI INI</a>
-        </div>
-    </div>
-
-    {{-- Layout Utama --}}
-    <div class="rj-layout">
-
-        {{-- Sidebar Daftar Dokter --}}
-        <div class="rj-sidebar">
-            <div class="rj-sidebar-header">Seluruh Dokter</div>
-            <ul class="rj-doctor-list">
-                @foreach($doctors as $doctor)
-                    <li class="rj-doctor-item">{{ $doctor->full_title }}</li>
-                @endforeach
-            </ul>
-        </div>
-
-        {{-- Grid Jadwal --}}
-        <div class="rj-main">
-            <div class="rj-table-wrapper">
-                <table class="rj-table">
-                    <thead>
-                        <tr>
-                            <th class="rj-time-col sticky-col">JAM</th>
-                            @foreach($doctors as $doctor)
-                                <th>
-                                    <div class="rj-th-content">
-                                        <span>{{ strtoupper($doctor->full_title) }}</span>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </div>
-                                </th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $now = \Carbon\Carbon::now()->format('H:i'); @endphp
-
-                        @foreach($timeSlots as $slot)
-                            <tr>
-                                <td class="rj-time-col sticky-col">
-                                    @if($date === today()->toDateString() && $slot === collect($timeSlots)->first(fn($t) => $t >= $now))
-                                        <span class="rj-current-time-dot"></span>
-                                    @endif
-                                    {{ $slot }} WIB
-                                </td>
-
-                                @foreach($doctors as $doctor)
-                                    @php $apt = $schedule[$doctor->id][$slot] ?? null; @endphp
-                                    <td>
-                                        @if($apt)
-                                            <div class="rj-appointment"
-                                                 style="border-left:3px solid {{ $apt->status_color }}"
-                                                 onclick="openStatusModal({{ $apt->id }}, '{{ addslashes($apt->patient_name) }}', '{{ $apt->status }}')"
-                                                 title="{{ $apt->patient_name }} — {{ $apt->treatment->name }}">
-                                                <div class="rj-apt-name">{{ $apt->patient_name }}</div>
-                                                <div class="rj-apt-treatment">{{ $apt->treatment->name }}</div>
-                                                <span class="rj-apt-status" style="background:{{ $apt->status_color }}">
-                                                    {{ ucfirst($apt->status) }}
-                                                </span>
-                                            </div>
-                                        @endif
-                                    </td>
-                                @endforeach
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Modal Update Status --}}
-<div id="statusModal" class="rj-modal-overlay" onclick="closeModal(event)">
-    <div class="rj-modal">
-        <div class="rj-modal-header">
-            <h3 id="modalPatientName">Update Status</h3>
-            <button class="rj-modal-close" onclick="closeStatusModal()">✕</button>
-        </div>
-        <div class="rj-modal-body">
-            <p style="font-size:13px;color:#6B513E;margin-bottom:16px">Pilih status baru untuk pasien ini:</p>
-            <div class="rj-status-btns">
-                <button class="rj-status-btn" style="background:#EF4444" onclick="updateStatus('pending')">Pending</button>
-                <button class="rj-status-btn" style="background:#F59E0B" onclick="updateStatus('confirmed')">Confirmed</button>
-                <button class="rj-status-btn" style="background:#8B5CF6" onclick="updateStatus('waiting')">Waiting</button>
-                <button class="rj-status-btn" style="background:#3B82F6" onclick="updateStatus('engaged')">Engaged</button>
-                <button class="rj-status-btn" style="background:#84CC16" onclick="updateStatus('succeed')">Succeed</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .rj-container { padding:0 16px 24px 16px; font-family:'Instrument Sans',sans-serif; }
-    .rj-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px; }
-    .rj-title-area { flex:1; min-width:200px; }
-    .rj-title { font-size:24px; font-weight:700; color:#582C0C; margin:0; }
-    .rj-subtitle { font-size:14px; color:#C58F59; margin:4px 0 0; }
-    .rj-status-legend { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
-    .rj-status-item { font-size:12px; color:#6B513E; display:flex; align-items:center; gap:6px; font-weight:500; }
-    .rj-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
-    .rj-header-actions { display:flex; align-items:center; gap:14px; }
-    .rj-date-nav { display:flex; align-items:center; gap:10px; }
-    .rj-date-text { display:flex; flex-direction:column; align-items:center; line-height:1.2; }
-    .rj-date-day { font-size:13px; font-weight:700; color:#C58F59; }
-    .rj-date-full { font-size:15px; font-weight:700; color:#582C0C; }
-    .rj-icon-btn { background:none; border:none; color:#C58F59; cursor:pointer; font-size:16px; padding:4px; text-decoration:none; transition:color 0.2s; }
-    .rj-icon-btn:hover { color:#582C0C; }
-    .rj-btn-today { background:#582C0C; color:white; border:none; padding:8px 16px; border-radius:4px; font-size:13px; font-weight:700; cursor:pointer; text-decoration:none; transition:background 0.2s; }
-    .rj-btn-today:hover { background:#401f08; }
-    .rj-layout { display:flex; gap:20px; align-items:flex-start; }
-    .rj-sidebar { width:240px; flex-shrink:0; background:white; box-shadow:0 1px 3px rgba(88,44,12,0.08); }
-    .rj-sidebar-header { background:#C58F59; color:white; font-size:15px; font-weight:600; padding:14px 18px; text-align:center; }
-    .rj-doctor-list { list-style:none; padding:0; margin:0; }
-    .rj-doctor-item { padding:14px 18px; font-size:13px; color:#582C0C; border:1px solid #E5D6C5; border-top:none; cursor:pointer; transition:background 0.2s; }
-    .rj-doctor-item:hover { background:rgba(197,143,89,0.06); }
-    .rj-main { flex:1; min-width:0; background:white; box-shadow:0 1px 3px rgba(88,44,12,0.08); }
-    .rj-table-wrapper { width:100%; max-height:620px; overflow-x:auto; overflow-y:auto; }
-    .rj-table-wrapper::-webkit-scrollbar { width:7px; height:7px; }
-    .rj-table-wrapper::-webkit-scrollbar-thumb { background:#C58F59; border-radius:4px; }
-    .rj-table { width:100%; min-width:900px; border-collapse:collapse; table-layout:fixed; }
-    .sticky-col { position:sticky; left:0; background:white; z-index:2; border-right:1px solid #E5D6C5 !important; }
-    .rj-table th { background:#C58F59; color:white; font-size:12px; font-weight:600; padding:14px 12px; text-align:left; border:1px solid #b07d4a; position:sticky; top:0; z-index:1; }
-    .rj-table th.sticky-col { z-index:3; width:90px; text-align:center; }
-    .rj-th-content { display:flex; justify-content:space-between; align-items:center; gap:6px; }
-    .rj-table td { border:1px solid #E5D6C5; height:64px; padding:8px; vertical-align:top; }
-    .rj-time-col { font-size:12px; color:#582C0C; text-align:center; font-weight:500; vertical-align:middle !important; position:relative; }
-    .rj-current-time-dot { display:inline-block; width:9px; height:9px; background:#3B82F6; border-radius:50%; position:absolute; left:7px; top:50%; transform:translateY(-50%); }
-    .rj-appointment { background:#fdf8f4; border-radius:6px; padding:6px 8px; cursor:pointer; border-left:3px solid #C58F59; transition:background 0.2s; height:100%; }
-    .rj-appointment:hover { background:#f5ede3; }
-    .rj-apt-name { font-size:12px; font-weight:700; color:#582C0C; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .rj-apt-treatment { font-size:11px; color:#9a7a60; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .rj-apt-status { font-size:10px; color:white; padding:1px 6px; border-radius:10px; display:inline-block; margin-top:3px; font-weight:600; }
-    .rj-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1000; align-items:center; justify-content:center; }
-    .rj-modal-overlay.open { display:flex; }
-    .rj-modal { background:white; border-radius:16px; width:360px; overflow:hidden; box-shadow:0 8px 40px rgba(88,44,12,0.2); }
-    .rj-modal-header { background:#582C0C; color:white; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; }
-    .rj-modal-header h3 { font-size:15px; font-weight:700; }
-    .rj-modal-close { background:none; border:none; color:white; font-size:18px; cursor:pointer; opacity:0.8; }
-    .rj-modal-close:hover { opacity:1; }
-    .rj-modal-body { padding:20px; }
-    .rj-status-btns { display:flex; flex-direction:column; gap:8px; }
-    .rj-status-btn { width:100%; padding:10px; border:none; border-radius:8px; color:white; font-size:14px; font-weight:600; font-family:'Instrument Sans',sans-serif; cursor:pointer; transition:opacity 0.2s; }
-    .rj-status-btn:hover { opacity:0.85; }
-    @media(max-width:992px) {
-        .rj-layout { flex-direction:column; }
-        .rj-sidebar { width:100%; }
-        .rj-header { flex-direction:column; align-items:flex-start; }
-    }
-</style>
-
-<script>
-let currentAptId = null;
-
-function openStatusModal(id, name, currentStatus) {
-    currentAptId = id;
-    document.getElementById('modalPatientName').textContent = name;
-    document.getElementById('statusModal').classList.add('open');
-}
-
-function closeStatusModal() {
-    document.getElementById('statusModal').classList.remove('open');
-    currentAptId = null;
-}
-
-function closeModal(e) {
-    if (e.target === document.getElementById('statusModal')) closeStatusModal();
-}
-
-function updateStatus(status) {
-    if (!currentAptId) return;
-
-    fetch(`/admin/appointments/${currentAptId}/status`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: JSON.stringify({ status })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.success) {
-            closeStatusModal();
-            location.reload();
+        $dateColumns = [];
+        if ($viewMode === 'single') {
+            $startOffset = (int) request('offset', 0); 
+            for ($i = 0; $i < 7; $i++) {
+                $dateColumns[] = \Carbon\Carbon::parse($today)
+                    ->addDays($startOffset + $i)
+                    ->toDateString();
+            }
         }
-    })
-    .catch(err => console.error(err));
-}
-</script>
+    @endphp
+
+    <div class="rj-outer">
+        <div class="rj-wrap">
+
+            {{-- ─── SIDEBAR ─── --}}
+            <div class="rj-sidebar">
+                <div class="rj-sidebar-title">Dokter</div>
+                <ul class="rj-doctor-list">
+                    <li>
+                        <a href="{{ route('admin.outpatient', ['date' => $date]) }}"
+                            class="rj-doc-item {{ $viewMode === 'all' ? 'active' : '' }}">
+                            <span class="rj-doc-avatar all">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </span>
+                            <span class="rj-doc-name">Semua Dokter</span>
+                        </a>
+                    </li>
+                    @foreach ($doctors as $doc)
+                        <li>
+                            <a href="{{ route('admin.outpatient', ['date' => $date, 'doctor_id' => $doc->id]) }}"
+                                class="rj-doc-item {{ $selectedDoctorId == $doc->id ? 'active' : '' }}">
+                                <span class="rj-doc-avatar">{{ strtoupper(substr($doc->name, 5, 1)) }}</span>
+                                <div class="rj-doc-info">
+                                    <span class="rj-doc-name">{{ $doc->name }}</span>
+                                    @if ($doc->practice)
+                                        <span class="rj-doc-spec">{{ $doc->practice }}</span>
+                                    @endif
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+            {{-- ─── MAIN ─── --}}
+            <div class="rj-main">
+
+                {{-- Header --}}
+                <div class="rj-header">
+                    <div class="rj-header-left">
+                        <h1 class="rj-title">Rawat Jalan</h1>
+                        <p class="rj-subtitle">hanglekiu dental specialist</p>
+                    </div>
+
+                    <div class="rj-legend">
+                        <span class="rj-leg"><span class="dot" style="background:#EF4444"></span>Pending</span>
+                        <span class="rj-leg"><span class="dot" style="background:#F59E0B"></span>Confirmed</span>
+                        <span class="rj-leg"><span class="dot" style="background:#8B5CF6"></span>Waiting</span>
+                        <span class="rj-leg"><span class="dot" style="background:#3B82F6"></span>Engaged</span>
+                        <span class="rj-leg"><span class="dot" style="background:#84CC16"></span>Succeed</span>
+                    </div>
+
+                    {{-- Navigasi --}}
+                    <div class="rj-nav">
+                        @if ($viewMode === 'all')
+                            {{-- Mode all: navigasi per hari --}}
+                            <a href="{{ route('admin.outpatient', ['date' => \Carbon\Carbon::parse($date)->subDay()->toDateString()]) }}"
+                                class="rj-nav-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M15 18l-6-6 6-6" />
+                                </svg>
+                            </a>
+                            <div class="rj-nav-date">
+                                <span class="rj-nav-day">{{ $carbon->locale('id')->isoFormat('dddd') }}</span>
+                                <span class="rj-nav-full">{{ $carbon->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                            </div>
+                            <a href="{{ route('admin.outpatient', ['date' => \Carbon\Carbon::parse($date)->addDay()->toDateString()]) }}"
+                                class="rj-nav-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M9 18l6-6-6-6" />
+                                </svg>
+                            </a>
+                            @if ($isToday)
+                                <span class="rj-today-btn disabled">Hari Ini</span>
+                            @else
+                                <a href="{{ route('admin.outpatient') }}" class="rj-today-btn">Hari Ini</a>
+                            @endif
+                        @else
+                            {{-- Mode single doctor: navigasi per hari --}}
+                            @php $offset = (int) request('offset', 0); @endphp
+                            {{-- Tombol kiri:  mundur 1 hari --}}
+                            <a href="{{ route('admin.outpatient', ['date' => $date, 'doctor_id' => $selectedDoctorId, 'offset' => $offset - 1]) }}"
+                                class="rj-nav-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M15 18l-6-6 6-6" />
+                                </svg>
+                            </a>
+                            <div class="rj-nav-date">
+                                <span class="rj-nav-day">{{ $selectedDoctor?->name }}</span>
+                                <span class="rj-nav-full">
+                                    {{ \Carbon\Carbon::parse($dateColumns[0])->locale('id')->isoFormat('D MMM') }}
+                                    – {{ \Carbon\Carbon::parse($dateColumns[6])->locale('id')->isoFormat('D MMM YYYY') }}
+                                </span>
+                            </div>
+                            {{-- Tombol kanan: maju 1 hari --}}
+                            <a href="{{ route('admin.outpatient', ['date' => $date, 'doctor_id' => $selectedDoctorId, 'offset' => $offset + 1]) }}"
+                                class="rj-nav-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M9 18l6-6-6-6" />
+                                </svg>
+                            </a>
+                            {{-- Hari ini: disable kalau offset=0 (sudah di minggu yang includes hari ini) --}}
+                            @if ($offset === 0)
+                                <span class="rj-today-btn disabled">Hari Ini</span>
+                            @else
+                                <a href="{{ route('admin.outpatient', ['date' => $today, 'doctor_id' => $selectedDoctorId]) }}"
+                                    class="rj-today-btn">Hari Ini</a>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Grid --}}
+                <div class="rj-table-wrap">
+                    <table class="rj-table">
+                        <thead>
+                            <tr>
+                                <th class="th-time">JAM</th>
+                                @if ($viewMode === 'all')
+                                    @foreach ($doctors as $doc)
+                                        <th>{{ strtoupper($doc->full_title) }}</th>
+                                    @endforeach
+                                @else
+                                    @foreach ($dateColumns as $dc)
+                                        @php
+                                            $dcCarbon = \Carbon\Carbon::parse($dc);
+                                            $isColToday = $dc === $today;
+                                        @endphp
+                                        <th class="{{ $isColToday ? 'th-today' : '' }}">
+                                            <div class="th-date-col">
+                                                <span
+                                                    class="th-weekday">{{ $dcCarbon->locale('id')->isoFormat('ddd') }}</span>
+                                                <span
+                                                    class="th-datenum {{ $isColToday ? 'today-badge' : '' }}">{{ $dcCarbon->format('d') }}</span>
+                                                <span
+                                                    class="th-month">{{ $dcCarbon->locale('id')->isoFormat('MMM') }}</span>
+                                            </div>
+                                        </th>
+                                    @endforeach
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $now = \Carbon\Carbon::now()->format('H:i'); @endphp
+                            @foreach ($timeSlots as $slot)
+                                <tr>
+                                    <td class="td-time">
+                                        {{ $slot }}
+                                    </td>
+                                    @if ($viewMode === 'all')
+                                        @foreach ($doctors as $doc)
+                                            @php $apt = $schedule[$doc->id][$slot] ?? null; @endphp
+                                            <td>
+                                                @if ($apt)
+                                                    <div class="apt-card"
+                                                        style="border-left-color:{{ $apt->status_color }}"
+                                                        onclick="openModal({{ $apt->id }},'{{ addslashes($apt->patient_name) }}','{{ $apt->status }}')">
+                                                        <div class="apt-name">{{ $apt->patient_name }}</div>
+                                                        <div class="apt-treat">{{ $apt->treatment->name }}</div>
+                                                        <span class="apt-badge"
+                                                            style="background:{{ $apt->status_color }}">{{ ucfirst($apt->status) }}</span>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                        @endforeach
+                                    @else
+                                        @foreach ($dateColumns as $dc)
+                                            @php
+                                                // Query appointments untuk dokter ini, tanggal dc, jam slot
+                                                $apt = \App\Models\Appointment::with('treatment')
+                                                    ->where('doctor_id', $selectedDoctorId)
+                                                    ->whereDate('appointment_date', $dc)
+                                                    ->where('appointment_time', $slot . ':00')
+                                                    ->first();
+                                                $isColToday = $dc === $today;
+                                            @endphp
+                                            <td class="{{ $isColToday ? 'col-today' : '' }}">
+                                                @if ($apt)
+                                                    <div class="apt-card"
+                                                        style="border-left-color:{{ $apt->status_color }}"
+                                                        onclick="openModal({{ $apt->id }},'{{ addslashes($apt->patient_name) }}','{{ $apt->status }}')">
+                                                        <div class="apt-name">{{ $apt->patient_name }}</div>
+                                                        <div class="apt-treat">{{ $apt->treatment->name }}</div>
+                                                        <span class="apt-badge"
+                                                            style="background:{{ $apt->status_color }}">{{ ucfirst($apt->status) }}</span>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                        @endforeach
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>{{-- rj-main --}}
+    </div>{{-- rj-wrap --}}
+    </div>{{-- rj-outer --}}
+
+    {{-- Modal --}}
+    <div id="aptModal" class="modal-overlay" onclick="closeModalOutside(event)">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3 id="modalName">Update Status</h3>
+                <button onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Pilih status baru:</p>
+                <div class="modal-btns">
+                    <button style="background:#EF4444" onclick="setStatus('pending')">Pending</button>
+                    <button style="background:#F59E0B" onclick="setStatus('confirmed')">Confirmed</button>
+                    <button style="background:#8B5CF6" onclick="setStatus('waiting')">Waiting</button>
+                    <button style="background:#3B82F6" onclick="setStatus('engaged')">Engaged</button>
+                    <button style="background:#84CC16" onclick="setStatus('succeed')">Succeed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        :root {
+            --brown: #582C0C;
+            --gold: #C58F59;
+            --cream: #fdf8f4;
+            --border: #E5D6C5;
+        }
+
+        /* Outer padding wrapper */
+        .rj-outer {
+            padding: 20px;
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        /* Layout */
+        .rj-wrap {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        /* Sidebar — tinggi nyesuaikan konten, bukan tabel */
+        .rj-sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            align-self: flex-start;
+            /* ← kunci: tinggi ikut konten */
+            overflow: hidden;
+        }
+
+        .rj-sidebar-title {
+            padding: 16px 18px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .rj-doctor-list {
+            list-style: none;
+            padding: 0 8px 12px;
+            margin: 0;
+        }
+
+        .rj-doc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--brown);
+            transition: background .15s;
+            cursor: pointer;
+        }
+
+        .rj-doc-item:hover {
+            background: rgba(197, 143, 89, .08);
+        }
+
+        .rj-doc-item.active {
+            background: rgba(88, 44, 12, .08);
+        }
+
+        .rj-doc-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--gold);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rj-doc-avatar.all {
+            background: var(--brown);
+        }
+
+        .rj-doc-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .rj-doc-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--brown);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rj-doc-spec {
+            font-size: 11px;
+            color: var(--gold);
+        }
+
+        /* Main — wrapper tabel dengan border radius */
+        .rj-main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .rj-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            gap: 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rj-header-left {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .rj-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brown);
+            margin: 0;
+        }
+
+        .rj-subtitle {
+            font-size: 12px;
+            color: var(--gold);
+            margin: 2px 0 0;
+        }
+
+        .rj-legend {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .rj-leg {
+            font-size: 11px;
+            color: #6B513E;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Nav */
+        .rj-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rj-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid var(--brown);
+            background: var(--brown);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .rj-nav-btn:hover {
+            background: #401f08;
+            border-color: #401f08;
+        }
+
+        .rj-nav-btn.disabled {
+            background: transparent;
+            color: var(--brown);
+            cursor: not-allowed;
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        .rj-nav-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+            min-width: 130px;
+        }
+
+        .rj-nav-day {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .rj-nav-full {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brown);
+        }
+
+        .rj-today-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'Instrument Sans', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all .2s;
+            background: var(--brown);
+            color: white;
+            border: 2px solid var(--brown);
+        }
+
+        .rj-today-btn:hover {
+            background: #401f08;
+        }
+
+        .rj-today-btn.disabled {
+            background: transparent;
+            color: var(--brown);
+            border: 2px solid var(--brown);
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: .6;
+        }
+
+        /* Table — scroll di dalam, tinggi fixed ~10 baris */
+        .rj-table-wrap {
+            height: 500px;
+            /* tampil sekitar jam 08:00–10:00, sisanya scroll */
+            overflow: auto;
+        }
+
+        .rj-table-wrap::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .rj-table-wrap::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        .rj-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .th-time,
+        .td-time {
+            width: 72px;
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 2;
+            border-right: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--brown);
+            font-weight: 600;
+        }
+
+        .rj-table th {
+            background: var(--brown);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, .1);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .rj-table th.th-time {
+            z-index: 3;
+        }
+
+        .rj-table th.th-today {
+            background: #401f08;
+        }
+
+        .th-date-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .th-weekday {
+            font-size: 10px;
+            opacity: .7;
+        }
+
+        .th-datenum {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .th-datenum.today-badge {
+            background: var(--gold);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .th-month {
+            font-size: 10px;
+            opacity: .7;
+        }
+
+        .rj-table td {
+            border: 1px solid var(--border);
+            height: 56px;
+            padding: 6px;
+            vertical-align: top;
+        }
+
+        .rj-table td.col-today {
+            background: rgba(88, 44, 12, .02);
+        }
+
+        .td-time {
+            height: 56px;
+            font-size: 11px;
+            vertical-align: middle !important;
+        }
+
+        /* Apt card */
+        .apt-card {
+            border-radius: 5px;
+            padding: 4px 6px;
+            cursor: pointer;
+            border-left: 3px solid var(--gold);
+            background: var(--cream);
+            transition: background .15s;
+            height: 100%;
+        }
+
+        .apt-card:hover {
+            background: #f0e8df;
+        }
+
+        .apt-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brown);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .apt-treat {
+            font-size: 10px;
+            color: #9a7a60;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .apt-badge {
+            font-size: 9px;
+            color: white;
+            padding: 1px 5px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 16px;
+            width: 340px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(88, 44, 12, .2);
+        }
+
+        .modal-head {
+            background: var(--brown);
+            color: white;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-head h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .modal-head button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: .8;
+        }
+
+        .modal-body {
+            padding: 16px;
+        }
+
+        .modal-body p {
+            font-size: 12px;
+            color: #6B513E;
+            margin: 0 0 12px;
+        }
+
+        .modal-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .modal-btns button {
+            width: 100%;
+            padding: 9px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Instrument Sans', sans-serif;
+            cursor: pointer;
+            transition: opacity .2s;
+            text-align: left;
+        }
+
+        .modal-btns button:hover {
+            opacity: .85;
+        }
+
+        @media(max-width:768px) {
+            .rj-outer {
+                padding: 12px;
+            }
+
+            .rj-wrap {
+                flex-direction: column;
+            }
+
+            .rj-sidebar {
+                width: 100%;
+                align-self: auto;
+            }
+
+            .rj-doctor-list {
+                display: flex;
+                gap: 6px;
+                padding: 8px;
+                overflow-x: auto;
+            }
+
+            .rj-sidebar-title {
+                display: none;
+            }
+        }
+    </style>
+
+    <script>
+        let activeId = null;
+
+        function openModal(id, name, status) {
+            activeId = id;
+            document.getElementById('modalName').textContent = name;
+            document.getElementById('aptModal').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('aptModal').classList.remove('open');
+            activeId = null;
+        }
+
+        function closeModalOutside(e) {
+            if (e.target.id === 'aptModal') closeModal();
+        }
+
+        function setStatus(status) {
+            if (!activeId) return;
+            fetch(`/admin/appointments/${activeId}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        status
+                    })
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        closeModal();
+                        location.reload();
+                    }
+                });
+        }
+    </script>
 @endsection
