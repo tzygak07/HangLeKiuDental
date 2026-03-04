@@ -13,7 +13,7 @@
     @include('components.navbarWelcome')
 
     {{-- Hero Section --}}
-    <section class="relative w-full h-screen flex items-end">
+    <section id="hero-section" class="relative w-full h-[calc(100vh-60px)] flex items-end overflow-hidden">
         {{-- Background Image --}}
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('images/bg-homepage.png') }}" alt="Hanglekiu Dental Specialist"
@@ -23,7 +23,7 @@
         </div>
 
         {{-- Hero Content --}}
-        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-9 pb-36 md:pb-44">
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-9 pb-16 md:pb-20">
             <h1 class="text-3xl md:text-[42px] font-bold text-white leading-tight mb-4">
                 Hanglekiu Dental Specialist
             </h1>
@@ -36,13 +36,13 @@
             <div class="flex flex-wrap items-center gap-4">
                 {{-- Buat Janji Temu → /registration --}}
                 <a href="{{ route('registration.form') }}"
-                   class="px-8 py-3 bg-primary hover:bg-primary/90 text-white text-base md:text-lg font-medium rounded-full transition-all duration-200 hover:shadow-lg">
+                   class="px-[18px] py-[12px] bg-primary hover:bg-primary/90 text-white text-base md:text-lg font-medium rounded-full transition-all duration-200 hover:shadow-lg">
                     Buat Janji Temu
                 </a>
 
                 {{-- Hubungi Kami --}}
                 <a href="https://wa.me/6281234567890" target="_blank" rel="noopener"
-                   class="px-8 py-3 bg-primary hover:bg-primary/90 text-white text-base md:text-lg font-medium rounded-full transition-all duration-200 hover:shadow-lg flex items-center gap-2">
+                   class="px-[18px] py-[12px] bg-primary hover:bg-primary/90 text-white text-base md:text-lg font-medium rounded-full transition-all duration-200 hover:shadow-lg flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
@@ -100,35 +100,53 @@
         {{-- Profil Dokter — 3/4 --}}
         <div id="klinik" class="w-full flex-1 mt-16">
             <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 h-full">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center h-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center h-full">
 
-                    {{-- Left: Doctor Image --}}
-                    <div class="relative flex justify-center items-end h-full">
-                        {{-- Background decorative badges --}}
-                        <div class="absolute top-8 left-8 w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center">
-                            <img src="{{ asset('images/logo-hds.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                        </div>
-                        <div class="absolute top-8 right-12 w-16 h-16 bg-[var(--font-color-primary)]/10 rounded-full flex items-center justify-center">
-                            <img src="{{ asset('images/logo-hds.png') }}" alt="Badge" class="w-10 h-10 object-contain">
-                        </div>
+                    {{-- Left: Doctor Image Carousel --}}
+                    <div class="relative flex justify-center items-end h-full" style="min-height: 640px;">
 
-                        {{-- Doctor photo --}}
-                        <div class="w-full max-w-4xl">
-                            <img src="{{ asset('images/budok.png') }}" alt="Dokter Spesialis"
-                                 class="w-full h-auto object-contain scale-110 origin-bottom">
+                        {{-- Carousel Container --}}
+                        <div id="doctor-carousel" class="relative w-full flex justify-center items-end overflow-hidden" style="height: 640px;">
+                            {{-- 7 slots: hidden-left, far-left, left, center, right, far-right, hidden-right --}}
+                            <div class="doctor-slot absolute bottom-24" style="left:-39%; width:42%; z-index:0; opacity:0; filter:blur(2px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain">
+                            </div>
+                            <div class="doctor-slot absolute bottom-24" style="left:-8%; width:44%; z-index:1; opacity:0.3; filter:blur(1px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain">
+                            </div>
+                            <div class="doctor-slot absolute bottom-24" style="left:4%; width:52%; z-index:2; opacity:0.5; filter:blur(0.5px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain">
+                            </div>
+                            <div class="doctor-slot absolute bottom-24" style="left:19%; width:66%; z-index:5; opacity:1; filter:blur(0px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain drop-shadow-2xl">
+                                {{-- Graduation badges --}}
+                                <img src="{{ asset('images/dokter_animate/lulusan2.png') }}" alt="Lulusan"
+                                     class="absolute top-2 -left-8 w-24 h-24 object-contain doctor-badge-left">
+                                <img src="{{ asset('images/dokter_animate/lulusan.png') }}" alt="Lulusan"
+                                     class="absolute top-2 -right-8 w-24 h-24 object-contain doctor-badge-right">
+                            </div>
+                            <div class="doctor-slot absolute bottom-24" style="left:48%; width:52%; z-index:2; opacity:0.5; filter:blur(0.5px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain">
+                            </div>
+                            <div class="doctor-slot absolute bottom-24" style="left:66%; width:44%; z-index:1; opacity:0.3; filter:blur(1px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain">
+                            </div>
+                            <div class="doctor-slot absolute bottom-24" style="left:97%; width:42%; z-index:0; opacity:0; filter:blur(2px); transition: left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1);">
+                                <img src="" alt="" class="w-full h-auto object-contain">
+                            </div>
                         </div>
                     </div>
 
                     {{-- Right: Doctor Info --}}
                     <div>
-                        <h2 class="text-4xl md:text-5xl font-bold text-[var(--font-color-primary)] leading-tight mb-1">
+                        <h2 id="doctor-name" class="text-4xl md:text-5xl font-bold text-[var(--font-color-primary)] leading-tight mb-1">
                             Jenny Wilson Sp.Ort
                         </h2>
-                        <p class="text-base font-medium text-[var(--font-color-secondary)] mb-6">
-                            <span class="italic">Spesialis Orthodonti</span> &nbsp;|&nbsp; No. STR: 3122100318012345
+                        <p id="doctor-subtitle" class="text-[18.75px] italic font-medium text-[var(--font-color-secondary)] mb-6">
+                            Spesialis Orthodonti &nbsp;|&nbsp; No. STR: 3122100318012345
                         </p>
 
-                        <p class="text-[var(--fs-md)] font-normal text-[var(--font-color-secondary)] leading-relaxed mb-5 text-justify">
+                        <p id="doctor-bio" class="text-[var(--fs-md)] font-normal text-[var(--font-color-secondary)] leading-relaxed mb-5 text-justify">
                             Lulusan Universitas Indonesia Yang Kemudian Mendalami Spesialisasi Di University Of Adelaide, Beliau Telah Berdedikasi Selama Lebih Dari 12 Tahun Dalam Menangani Kasus Maloklusi Kompleks. Keahlian Beliau Berfokus Pada Penyelarasan Struktur Wajah Melalui Perpaduan Presisi Medis Dan Teknologi Ortodonti Terkini Untuk Menciptakan Profil Senyum Yang Harmonis Serta Fungsional.
                         </p>
 
@@ -148,12 +166,12 @@
 
                         {{-- Navigation Arrows --}}
                         <div class="flex items-center gap-3">
-                            <button class="px-8 py-2 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center transition-all duration-200 text-white">
+                            <button id="doctor-prev" class="px-8 py-2 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center transition-all duration-200 text-white">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
                                 </svg>
                             </button>
-                            <button class="px-8 py-2 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center transition-all duration-200 text-white">
+                            <button id="doctor-next" class="px-8 py-2 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center transition-all duration-200 text-white">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
                                 </svg>
@@ -174,7 +192,7 @@
             
             {{-- Section Header --}}
             <div class="text-center mb-10">
-                <h2 class="text-[48px] font-semibold text-[#582C0C] mb-6">
+                <h2 class="text-[48px] font-semibold text-[#582C0C] mb-[12px]">
                     Layanan & Perawatan
                 </h2>
                 <p class="text-[18.75px] font-normal text-[#582C0C] max-w-3xl mx-auto leading-relaxed">
@@ -422,7 +440,7 @@
 
     {{-- Footer --}}
     <footer class="w-full bg-[#E5D6C5]">
-        <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-14 md:py-16">
+        <div class="max-w-7xl mx-auto p-[32px]">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
 
                 {{-- Column 1: Logo & Social Media --}}
@@ -500,6 +518,191 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Sesuaikan hero: margin-top & tinggi berdasarkan tinggi navbar fixed
+        (function() {
+            const nav = document.querySelector('nav');
+            const hero = document.getElementById('hero-section');
+            if (nav && hero) {
+                const navH = nav.offsetHeight;
+                hero.style.marginTop = navH + 'px';
+                hero.style.height = 'calc(100vh - ' + navH + 'px)';
+            }
+        })();
+
+        // ========== Doctor Character-Select Carousel ==========
+        (function() {
+            const doctors = [
+                {
+                    image: "{{ asset('images/dokter_animate/budok1.png') }}",
+                    shadow: "{{ asset('images/dokter_animate/bayangan_budok1.png') }}",
+                    name: "Dr. Jenny Wilson, Sp.Ort",
+                    subtitle: '<span class="italic">Spesialis Orthodonti</span> &nbsp;|&nbsp; No. STR: 3122100318012345',
+                    bio: "Lulusan Universitas Indonesia yang mendalami spesialisasi di University of Adelaide. Berdedikasi selama lebih dari 12 tahun menangani kasus maloklusi kompleks dengan teknologi ortodonti terkini."
+                },
+                {
+                    image: "{{ asset('images/dokter_animate/budok2.png') }}",
+                    shadow: "{{ asset('images/dokter_animate/bayangan_budok2.png') }}",
+                    name: "Dr. Sarah Mitchell, Sp.KG",
+                    subtitle: '<span class="italic">Spesialis Konservasi Gigi</span> &nbsp;|&nbsp; No. STR: 3122100318054321',
+                    bio: "Alumni Universitas Gadjah Mada dengan pengalaman 10 tahun di bidang konservasi gigi. Ahli dalam perawatan saluran akar dan restorasi estetik menggunakan material terbaik."
+                },
+                {
+                    image: "{{ asset('images/dokter_animate/budok3.png') }}",
+                    shadow: "{{ asset('images/dokter_animate/bayangan_budok3.png') }}",
+                    name: "Dr. Amanda Lee, Sp.Perio",
+                    subtitle: '<span class="italic">Spesialis Periodonti</span> &nbsp;|&nbsp; No. STR: 3122100318067890',
+                    bio: "Lulusan Universitas Airlangga dengan keahlian khusus di bidang periodonti. Berpengalaman lebih dari 8 tahun menangani penyakit gusi dan bedah periodontal dengan pendekatan minimal invasif."
+                },
+                {
+                    image: "{{ asset('images/dokter_animate/padok1.png') }}",
+                    shadow: "{{ asset('images/dokter_animate/bayangan_padok1.png') }}",
+                    name: "Dr. Michael Tan, Sp.BM",
+                    subtitle: '<span class="italic">Spesialis Bedah Mulut</span> &nbsp;|&nbsp; No. STR: 3122100318098765',
+                    bio: "Alumni Universitas Padjadjaran yang telah menangani lebih dari 3.000 kasus bedah mulut. Keahliannya meliputi implantologi, pencabutan impaksi, dan rekonstruksi rahang dengan teknologi 3D."
+                },
+                {
+                    image: "{{ asset('images/dokter_animate/padok2.png') }}",
+                    shadow: "{{ asset('images/dokter_animate/bayangan_padok2.png') }}",
+                    name: "Dr. David Chen, Sp.Pros",
+                    subtitle: '<span class="italic">Spesialis Prostodonti</span> &nbsp;|&nbsp; No. STR: 3122100318011223',
+                    bio: "Lulusan Universitas Trisakti dengan spesialisasi prostodonti dari Tokyo Medical and Dental University. Lebih dari 15 tahun berpengalaman dalam pembuatan crown, bridge, dan denture presisi tinggi."
+                }
+            ];
+
+            let currentIndex = 0;
+            let isAnimating = false;
+            const slots = document.querySelectorAll('.doctor-slot');
+            const prevBtn = document.getElementById('doctor-prev');
+            const nextBtn = document.getElementById('doctor-next');
+
+            function ci(idx) {
+                return ((idx % doctors.length) + doctors.length) % doctors.length;
+            }
+
+            // 7 positions: [hidden-left, far-left, left, center, right, far-right, hidden-right]
+            const positions = [
+                { left: -39, width: 42, zIndex: 0, opacity: 0,   blur: 2 },
+                { left: -8,  width: 44, zIndex: 1, opacity: 0.3, blur: 1 },
+                { left: 4,   width: 52, zIndex: 2, opacity: 0.5, blur: 0.5 },
+                { left: 19,  width: 66, zIndex: 5, opacity: 1,   blur: 0 },
+                { left: 48,  width: 52, zIndex: 2, opacity: 0.5, blur: 0.5 },
+                { left: 66,  width: 44, zIndex: 1, opacity: 0.3, blur: 1 },
+                { left: 97,  width: 42, zIndex: 0, opacity: 0,   blur: 2 }
+            ];
+
+            function applyPos(slot, pos, withTransition) {
+                if (!withTransition) {
+                    slot.style.transition = 'none';
+                } else {
+                    slot.style.transition = 'left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1)';
+                }
+                slot.style.left = pos.left + '%';
+                slot.style.width = pos.width + '%';
+                slot.style.zIndex = pos.zIndex;
+                slot.style.opacity = pos.opacity;
+                slot.style.filter = 'blur(' + pos.blur + 'px)';
+            }
+
+            // Set images for 7 slots based on current index
+            // Mapping: slot 0..6 => doctor at currentIndex + (slotIdx - 3)
+            function setAllImages() {
+                for (let i = 0; i < 7; i++) {
+                    const docIdx = ci(currentIndex + (i - 3));
+                    const doc = doctors[docIdx];
+                    const img = slots[i].querySelector('img:first-child') || slots[i].querySelector('img');
+                    // Center slot (index 3) uses main image, others use shadow
+                    img.src = (i === 3) ? doc.image : doc.shadow;
+                    img.alt = doc.name;
+                }
+            }
+
+            function renderInitial() {
+                setAllImages();
+                for (let i = 0; i < 7; i++) {
+                    applyPos(slots[i], positions[i], false);
+                }
+                void slots[0].offsetHeight; // force reflow
+            }
+
+            function animateTo(direction) {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                // 1) Pre-position the incoming slot at the hidden edge (no transition)
+                //    direction > 0 (next): new element enters from right (slot 6 hidden-right)
+                //    direction < 0 (prev): new element enters from left (slot 0 hidden-left)
+                // First, update the image of the slot that will enter
+                if (direction > 0) {
+                    // Slot 6 will slide in from right, set its image to currentIndex+4
+                    const newDocIdx = ci(currentIndex + 4);
+                    const doc = doctors[newDocIdx];
+                    const img = slots[6].querySelector('img:first-child') || slots[6].querySelector('img');
+                    img.src = doc.shadow;
+                    img.alt = doc.name;
+                    // Make sure slot 6 is at hidden-right position instantly
+                    applyPos(slots[6], positions[6], false);
+                } else {
+                    // Slot 0 will slide in from left, set its image to currentIndex-4
+                    const newDocIdx = ci(currentIndex - 4);
+                    const doc = doctors[newDocIdx];
+                    const img = slots[0].querySelector('img:first-child') || slots[0].querySelector('img');
+                    img.src = doc.shadow;
+                    img.alt = doc.name;
+                    applyPos(slots[0], positions[0], false);
+                }
+                void slots[0].offsetHeight; // force reflow
+
+                // 2) Animate all 7 slots to shift by one position
+                for (let i = 0; i < 7; i++) {
+                    const targetPosIdx = i - direction;
+                    if (targetPosIdx >= 0 && targetPosIdx < 7) {
+                        applyPos(slots[i], positions[targetPosIdx], true);
+                    } else if (targetPosIdx < 0) {
+                        applyPos(slots[i], positions[0], true); // slide to hidden-left
+                    } else {
+                        applyPos(slots[i], positions[6], true); // slide to hidden-right
+                    }
+                }
+
+                // Also update the center slot's image mid-transition to show the actual doctor
+                setTimeout(() => {
+                    // The slot that becomes center: if direction>0, slot index 4 becomes center
+                    // if direction<0, slot index 2 becomes center
+                    const newCenterSlot = direction > 0 ? slots[4] : slots[2];
+                    const newCenterDocIdx = ci(currentIndex + direction);
+                    const img = newCenterSlot.querySelector('img:first-child') || newCenterSlot.querySelector('img');
+                    img.src = doctors[newCenterDocIdx].image;
+                }, 200);
+
+                // 3) After animation completes, reset everything
+                setTimeout(() => {
+                    currentIndex = ci(currentIndex + direction);
+                    setAllImages();
+                    for (let i = 0; i < 7; i++) {
+                        applyPos(slots[i], positions[i], false);
+                    }
+                    void slots[0].offsetHeight;
+                    // Re-enable transitions
+                    for (let i = 0; i < 7; i++) {
+                        slots[i].style.transition = 'left 700ms cubic-bezier(0.25,0.1,0.25,1), width 700ms cubic-bezier(0.25,0.1,0.25,1), opacity 700ms cubic-bezier(0.25,0.1,0.25,1), filter 700ms cubic-bezier(0.25,0.1,0.25,1)';
+                    }
+                    isAnimating = false;
+                }, 720);
+            }
+
+            prevBtn.addEventListener('click', () => animateTo(-1));
+            nextBtn.addEventListener('click', () => animateTo(1));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') animateTo(-1);
+                if (e.key === 'ArrowRight') animateTo(1);
+            });
+
+            renderInitial();
+        })();
+    </script>
 
 </body>
 </html>
