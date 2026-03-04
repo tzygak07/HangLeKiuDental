@@ -1,5 +1,5 @@
 {{-- Navbar Welcome/Public --}}
-<nav class="w-full bg-white border-b border-[var(--color-background-secondary)] z-10 relative">
+<nav class="w-full bg-white border-b border-[var(--color-background-secondary)] z-50 sticky top-0">
     <div class="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
         {{-- Left: Logo --}}
         <a href="/" class="flex items-center">
