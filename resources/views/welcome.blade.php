@@ -537,37 +537,37 @@
                 {
                     image: "{{ asset('images/dokter_animate/budok1.png') }}",
                     shadow: "{{ asset('images/dokter_animate/bayangan_budok1.png') }}",
-                    name: "Dr. Jenny Wilson, Sp.Ort",
-                    subtitle: '<span class="italic">Spesialis Orthodonti</span> &nbsp;|&nbsp; No. STR: 3122100318012345',
-                    bio: "Lulusan Universitas Indonesia yang mendalami spesialisasi di University of Adelaide. Berdedikasi selama lebih dari 12 tahun menangani kasus maloklusi kompleks dengan teknologi ortodonti terkini."
+                    displayName: "Jenny Wilson Sp.Ort",
+                    subtitle: 'Spesialis Orthodonti &nbsp;|&nbsp; No. STR: 3122100318012345',
+                    bio: "Lulusan Universitas Indonesia yang mendalami spesialisasi di University of Adelaide. Berdedikasi selama 12 tahun menangani kasus maloklusi kompleks dengan teknologi ortodonti terkini."
                 },
                 {
                     image: "{{ asset('images/dokter_animate/budok2.png') }}",
                     shadow: "{{ asset('images/dokter_animate/bayangan_budok2.png') }}",
-                    name: "Dr. Sarah Mitchell, Sp.KG",
-                    subtitle: '<span class="italic">Spesialis Konservasi Gigi</span> &nbsp;|&nbsp; No. STR: 3122100318054321',
-                    bio: "Alumni Universitas Gadjah Mada dengan pengalaman 10 tahun di bidang konservasi gigi. Ahli dalam perawatan saluran akar dan restorasi estetik menggunakan material terbaik."
+                    displayName: "Sarah Mitchell Sp.KG",
+                    subtitle: 'Spesialis Konservasi Gigi &nbsp;|&nbsp; No. STR: 3122100318054321',
+                    bio: "Alumni Universitas Gadjah Mada dengan pengalaman 10 tahun di bidang konservasi gigi. Ahli dalam perawatan saluran akar dan restorasi estetik."
                 },
                 {
                     image: "{{ asset('images/dokter_animate/budok3.png') }}",
                     shadow: "{{ asset('images/dokter_animate/bayangan_budok3.png') }}",
-                    name: "Dr. Amanda Lee, Sp.Perio",
-                    subtitle: '<span class="italic">Spesialis Periodonti</span> &nbsp;|&nbsp; No. STR: 3122100318067890',
-                    bio: "Lulusan Universitas Airlangga dengan keahlian khusus di bidang periodonti. Berpengalaman lebih dari 8 tahun menangani penyakit gusi dan bedah periodontal dengan pendekatan minimal invasif."
+                    displayName: "Amanda Lee Sp.Perio",
+                    subtitle: 'Spesialis Periodonti &nbsp;|&nbsp; No. STR: 3122100318067890',
+                    bio: "Lulusan Universitas Airlangga dengan keahlian khusus periodonti. Berpengalaman 8 tahun menangani penyakit gusi dan bedah periodontal minimal invasif."
                 },
                 {
                     image: "{{ asset('images/dokter_animate/padok1.png') }}",
                     shadow: "{{ asset('images/dokter_animate/bayangan_padok1.png') }}",
-                    name: "Dr. Michael Tan, Sp.BM",
-                    subtitle: '<span class="italic">Spesialis Bedah Mulut</span> &nbsp;|&nbsp; No. STR: 3122100318098765',
-                    bio: "Alumni Universitas Padjadjaran yang telah menangani lebih dari 3.000 kasus bedah mulut. Keahliannya meliputi implantologi, pencabutan impaksi, dan rekonstruksi rahang dengan teknologi 3D."
+                    displayName: "Michael Tan Sp.BM",
+                    subtitle: 'Spesialis Bedah Mulut &nbsp;|&nbsp; No. STR: 3122100318098765',
+                    bio: "Alumni Universitas Padjadjaran yang telah menangani lebih dari 3.000 kasus bedah mulut meliputi implantologi dan rekonstruksi rahang dengan teknologi 3D."
                 },
                 {
                     image: "{{ asset('images/dokter_animate/padok2.png') }}",
                     shadow: "{{ asset('images/dokter_animate/bayangan_padok2.png') }}",
-                    name: "Dr. David Chen, Sp.Pros",
-                    subtitle: '<span class="italic">Spesialis Prostodonti</span> &nbsp;|&nbsp; No. STR: 3122100318011223',
-                    bio: "Lulusan Universitas Trisakti dengan spesialisasi prostodonti dari Tokyo Medical and Dental University. Lebih dari 15 tahun berpengalaman dalam pembuatan crown, bridge, dan denture presisi tinggi."
+                    displayName: "David Chen Sp.Pros",
+                    subtitle: 'Spesialis Prostodonti &nbsp;|&nbsp; No. STR: 3122100318011223',
+                    bio: "Lulusan Universitas Trisakti dengan spesialisasi dari Tokyo Medical and Dental University. Berpengalaman 15 tahun dalam pembuatan crown, bridge, dan denture presisi tinggi."
                 }
             ];
 
@@ -577,8 +577,19 @@
             const prevBtn = document.getElementById('doctor-prev');
             const nextBtn = document.getElementById('doctor-next');
 
+            const nameEl = document.getElementById('doctor-name');
+            const subtitleEl = document.getElementById('doctor-subtitle');
+            const bioEl = document.getElementById('doctor-bio');
+
             function ci(idx) {
                 return ((idx % doctors.length) + doctors.length) % doctors.length;
+            }
+
+            function updateDoctorInfo(docIdx) {
+                const doc = doctors[docIdx];
+                nameEl.textContent = doc.displayName;
+                subtitleEl.innerHTML = doc.subtitle;
+                bioEl.textContent = doc.bio;
             }
 
             // 7 positions: [hidden-left, far-left, left, center, right, far-right, hidden-right]
@@ -614,7 +625,7 @@
                     const img = slots[i].querySelector('img:first-child') || slots[i].querySelector('img');
                     // Center slot (index 3) uses main image, others use shadow
                     img.src = (i === 3) ? doc.image : doc.shadow;
-                    img.alt = doc.name;
+                    img.alt = doc.displayName;
                 }
             }
 
@@ -624,6 +635,7 @@
                     applyPos(slots[i], positions[i], false);
                 }
                 void slots[0].offsetHeight; // force reflow
+                updateDoctorInfo(currentIndex);
             }
 
             function animateTo(direction) {
@@ -640,7 +652,7 @@
                     const doc = doctors[newDocIdx];
                     const img = slots[6].querySelector('img:first-child') || slots[6].querySelector('img');
                     img.src = doc.shadow;
-                    img.alt = doc.name;
+                    img.alt = doc.displayName;
                     // Make sure slot 6 is at hidden-right position instantly
                     applyPos(slots[6], positions[6], false);
                 } else {
@@ -649,7 +661,7 @@
                     const doc = doctors[newDocIdx];
                     const img = slots[0].querySelector('img:first-child') || slots[0].querySelector('img');
                     img.src = doc.shadow;
-                    img.alt = doc.name;
+                    img.alt = doc.displayName;
                     applyPos(slots[0], positions[0], false);
                 }
                 void slots[0].offsetHeight; // force reflow
@@ -680,6 +692,7 @@
                 setTimeout(() => {
                     currentIndex = ci(currentIndex + direction);
                     setAllImages();
+                    updateDoctorInfo(currentIndex);
                     for (let i = 0; i < 7; i++) {
                         applyPos(slots[i], positions[i], false);
                     }
