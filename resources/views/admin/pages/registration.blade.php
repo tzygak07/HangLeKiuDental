@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('admin.layout.admin')
 @section('title', 'Registration')
 
 @section('navbar')
-    @include('components.navbarPendaftaranBaru', ['title' => 'Registration'])
+    @include('admin.components.navbarPendaftaranBaru', ['title' => 'Registration'])
 @endsection
 
 @section('content')
@@ -16,18 +16,6 @@
     </div>
 
     <div class="reg-layout">
-        <div class="reg-sidebar">
-            <ul class="reg-menu">
-                <li class="reg-menu-item active">Rawat Jalan Poli</li>
-                <li class="reg-menu-item">AntriCepat</li>
-                <li class="reg-menu-item">Gawat Darurat</li>
-                <li class="reg-menu-item">Kunjungan Sehat</li>
-                <li class="reg-menu-item">Promotif Preventif</li>
-                <li class="reg-menu-item">Kegiatan Kelompok</li>
-                <li class="reg-menu-item">Antrian Awal</li>
-                <li class="reg-menu-item">Screen Antrian</li>
-            </ul>
-        </div>
 
         {{-- Konten Utama Kanan --}}
         <div class="reg-main">
@@ -56,27 +44,65 @@
                                 <button class="reg-btn-icon-small"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
+                        
                         <div class="reg-input-group" style="flex: 1.5;">
                             <label>Poli *</label>
-                            <select class="reg-input">
-                                <option>Semua Poli</option>
-                            </select>
+                            {{-- CUSTOM DROPDOWN 1: POLI --}}
+                            <div class="reg-custom-select">
+                                <div class="reg-select-trigger">
+                                    <span class="reg-select-text">Semua Poli</span>
+                                    <svg class="reg-select-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C58F59" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div class="reg-options">
+                                    <div class="reg-option is-selected" data-value="semua">Semua Poli</div>
+                                    <div class="reg-option" data-value="gigi">Poli Gigi</div>
+                                    <div class="reg-option" data-value="umum">Poli Umum</div>
+                                </div>
+                                <input type="hidden" name="filter_poli" value="semua">
+                            </div>
                         </div>
                     </div>
 
                     <div class="reg-filter-row">
                         <div class="reg-input-group">
                             <label>Tenaga Medis *</label>
-                            <select class="reg-input">
-                                <option>Semua Tenaga Medis</option>
-                            </select>
+                            {{-- CUSTOM DROPDOWN 2: TENAGA MEDIS --}}
+                            <div class="reg-custom-select">
+                                <div class="reg-select-trigger">
+                                    <span class="reg-select-text">Semua Tenaga Medis</span>
+                                    <svg class="reg-select-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C58F59" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div class="reg-options">
+                                    <div class="reg-option is-selected" data-value="semua">Semua Tenaga Medis</div>
+                                    <div class="reg-option" data-value="dinda">drg. Dinda Tegar Jelita Sp.Ortho</div>
+                                    <div class="reg-option" data-value="ria">drg. Ria Budiati Sp. Ortho</div>
+                                    <div class="reg-option" data-value="wenny">DR. drg. Wenny Yulvie Sp.BM</div>
+                                    <div class="reg-option" data-value="aditya">drg. Aditya Putra</div>
+                                    <div class="reg-option" data-value="may">drg . MAY Lewerissa Sp.Perio</div>
+                                    <div class="reg-option" data-value="fanny">drg. Fanny Arditya M. Sp.Prost</div>
+                                </div>
+                                <input type="hidden" name="filter_dokter" value="semua">
+                            </div>
                         </div>
+                        
                         <div class="reg-input-group">
                             <label>Metode Pembayaran *</label>
-                            <select class="reg-input">
-                                <option>Semua Metode Pembayaran</option>
-                            </select>
+                            {{-- CUSTOM DROPDOWN 3: METODE PEMBAYARAN --}}
+                            <div class="reg-custom-select">
+                                <div class="reg-select-trigger">
+                                    <span class="reg-select-text">Semua Metode Pembayaran</span>
+                                    <svg class="reg-select-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C58F59" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div class="reg-options">
+                                    <div class="reg-option is-selected" data-value="semua">Semua Metode Pembayaran</div>
+                                    <div class="reg-option" data-value="umum">Umum / Tunai</div>
+                                    <div class="reg-option" data-value="asuransi">Asuransi</div>
+                                    <div class="reg-option" data-value="bpjs">BPJS Kesehatan</div>
+                                </div>
+                                <input type="hidden" name="filter_bayar" value="semua">
+                            </div>
                         </div>
+                        
                         <div class="reg-input-group" style="flex: 1.5; justify-content: flex-end;">
                             <div class="reg-search-box">
                                 <input type="text" placeholder="Nama Pasien, Nomor MR">
@@ -116,9 +142,21 @@
                                 <td>drg. Hanglekiu</td>
                                 <td>Asuransi</td>
                                 <td>Pembersihan Karang Gigi</td>
-                                <td><button class="reg-btn-outline" style="padding: 4px 8px; font-size: 11px;">Detail</button></td>
+                                <td><button class="reg-btn-outline" style="padding: 4px 8px;">Detail</button></td>
                             </tr>
-                            {{-- Tambahkan baris tr lainnya di sini --}}
+                            <tr>
+                                <td><span class="reg-status succeed">Succeed</span></td>
+                                <td>25/02/2026,<br>14:00</td>
+                                <td>25/02/2026,<br>20:32</td>
+                                <td>2</td>
+                                <td>Gigi</td>
+                                <td>Bpk Budi,<br>MR000099,<br>40 Tahun</td>
+                                <td>-</td>
+                                <td>drg. Hanglekiu</td>
+                                <td>Asuransi</td>
+                                <td>Pembersihan Karang Gigi</td>
+                                <td><button class="reg-btn-outline" style="padding: 4px 8px;">Detail</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -133,7 +171,7 @@
                         </select>
                     </div>
                     <div class="reg-page-info">
-                        1-1 Dari 1 Data
+                        1-2 Dari 2 Data
                     </div>
                     <div class="reg-page-controls">
                         <button class="reg-page-btn" disabled><i class="fas fa-chevron-left"></i></button>
@@ -153,6 +191,11 @@
         font-family: 'Instrument Sans', sans-serif;
     }
 
+    /* KUNCI FONT SIZE GLOBAL (13px) */
+    .reg-container * {
+        font-size: 13px;
+    }
+
     /* Header */
     .reg-header {
         display: flex;
@@ -162,25 +205,24 @@
     }
 
     .reg-title {
-        font-size: 24px;
+        font-size: 30px !important; /* Wajib 30px */
         font-weight: 700;
         color: #582C0C;
         margin: 0;
     }
 
     .reg-subtitle {
-        font-size: 14px;
         color: #C58F59;
         margin: 4px 0 0 0;
+        font-weight: 600;
     }
 
     .reg-btn-warning {
-        background-color: #F59E0B; /* Warna oranye/kuning dari gambar */
+        background-color: #F59E0B; 
         color: white;
         border: none;
         padding: 10px 20px;
         border-radius: 6px;
-        font-size: 14px;
         font-weight: 600;
         cursor: pointer;
         display: flex;
@@ -195,50 +237,10 @@
         align-items: flex-start;
     }
 
-    /* Sidebar Kiri */
-    .reg-sidebar {
-        width: 240px;
-        flex-shrink: 0;
-        background: white;
-        border: 1px solid #E5D6C5;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .reg-menu {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .reg-menu-item {
-        padding: 14px 20px;
-        font-size: 14px;
-        color: #6B513E;
-        border-bottom: 1px solid #E5D6C5;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .reg-menu-item:last-child {
-        border-bottom: none;
-    }
-
-    .reg-menu-item:hover {
-        background: rgba(197, 143, 89, 0.05);
-    }
-
-    /* Active Menu diganti ke warna cokelat tema */
-    .reg-menu-item.active {
-        background-color: #C58F59;
-        color: white;
-        font-weight: 600;
-    }
-
     /* Konten Utama Kanan */
     .reg-main {
         flex: 1;
-        min-width: 0; /* Penting agar tabel tidak meluber dari flexbox */
+        min-width: 0; 
     }
 
     .reg-card {
@@ -257,11 +259,16 @@
     }
 
     .reg-card-title {
-        font-size: 18px;
+        font-size: 18.75px !important; /* Wajib 18.75px */
+        font-weight: 700;
         color: #582C0C;
         margin: 0;
         display: flex;
         align-items: center;
+    }
+
+    .reg-card-title i {
+        font-size: 18.75px !important;
     }
 
     .reg-card-actions {
@@ -276,7 +283,6 @@
         color: #582C0C;
         padding: 6px 16px;
         border-radius: 4px;
-        font-size: 12px;
         font-weight: 600;
         cursor: pointer;
     }
@@ -319,7 +325,6 @@
     }
 
     .reg-input-group label {
-        font-size: 12px;
         color: #A38C7A;
     }
 
@@ -327,7 +332,6 @@
         border: none;
         border-bottom: 1px solid #C58F59;
         padding: 8px 0;
-        font-size: 14px;
         color: #582C0C;
         outline: none;
         background: transparent;
@@ -344,7 +348,6 @@
         border: none;
         outline: none;
         padding: 8px 0;
-        font-size: 14px;
         color: #582C0C;
         flex: 1;
     }
@@ -367,7 +370,6 @@
     .reg-search-box input {
         border: none;
         outline: none;
-        font-size: 13px;
         width: 100%;
         color: #582C0C;
     }
@@ -376,67 +378,143 @@
         color: #C58F59;
     }
 
-    /* ===== TABLE DENGAN HORIZONTAL SCROLL ===== */
+    /* ========================================= */
+    /* CUSTOM DROPDOWN CSS UNTUK HALAMAN REGIS   */
+    /* ========================================= */
+    .reg-custom-select {
+        position: relative;
+        width: 100%;
+    }
+
+    .reg-select-trigger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 8px 0; /* Menyesuaikan dengan padding .reg-input supaya sejajar */
+        border-bottom: 1px solid #C58F59;
+        cursor: pointer;
+        background: transparent;
+    }
+
+    .reg-select-text {
+        color: #582C0C;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 10px;
+    }
+
+    .reg-select-icon {
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .reg-custom-select.open .reg-select-icon {
+        transform: rotate(180deg);
+    }
+
+    .reg-options {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #E5D6C5;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(88, 44, 12, 0.08);
+        padding: 6px;
+        z-index: 100;
+        
+        /* Animasi Melayang */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.2s ease;
+        
+        /* Jika dokternya banyak, biar bisa di-scroll */
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
+    /* Styling Scrollbar khusus Dropdown */
+    .reg-options::-webkit-scrollbar { width: 6px; }
+    .reg-options::-webkit-scrollbar-track { background: transparent; }
+    .reg-options::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
+    .reg-options::-webkit-scrollbar-thumb:hover { background: #C58F59; }
+
+    .reg-custom-select.open .reg-options {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .reg-option {
+        padding: 10px 14px;
+        color: #6B513E;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 2px;
+    }
+
+    .reg-option:hover {
+        background-color: #FCFAF8;
+        color: #C58F59;
+    }
+
+    .reg-option.is-selected {
+        background-color: #FDF8F4;
+        color: #582C0C;
+        font-weight: 700;
+    }
+
+    /* ========================================= */
+    /* ===== TABLE DENGAN HORIZONTAL SCROLL =====*/
+    /* ========================================= */
     .reg-table-wrapper {
         width: 100%;
-        overflow-x: auto; /* Ini yang membuat tabel bisa digeser Kanan Kiri */
+        overflow-x: auto; 
         padding-bottom: 8px;
     }
 
-    /* Kustomisasi Scrollbar agar cantik */
-    .reg-table-wrapper::-webkit-scrollbar {
-        height: 8px;
-    }
-    .reg-table-wrapper::-webkit-scrollbar-track {
-        background: #F9FAFB;
-        border-radius: 4px;
-    }
-    .reg-table-wrapper::-webkit-scrollbar-thumb {
-        background: #D1D5DB;
-        border-radius: 4px;
-    }
-    .reg-table-wrapper::-webkit-scrollbar-thumb:hover {
-        background: #C58F59;
-    }
+    .reg-table-wrapper::-webkit-scrollbar { height: 8px; }
+    .reg-table-wrapper::-webkit-scrollbar-track { background: #F9FAFB; border-radius: 4px; }
+    .reg-table-wrapper::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
+    .reg-table-wrapper::-webkit-scrollbar-thumb:hover { background: #C58F59; }
 
     .reg-table {
         width: 100%;
-        min-width: 1200px; /* Lebar minimum agar tabel memaksa untuk di-scroll */
+        min-width: 1200px; 
         border-collapse: collapse;
         text-align: left;
     }
 
     .reg-table th {
-        background-color: #FDF8F4; /* Warna light cream menyatu dengan tema cokelat */
+        background-color: #FDF8F4; 
         color: #582C0C;
-        font-size: 13px;
         font-weight: 600;
         padding: 14px 20px;
         border-bottom: 2px solid #E5D6C5;
-        white-space: nowrap; /* Teks header tidak turun ke bawah */
+        white-space: nowrap; 
     }
 
     .reg-table td {
         padding: 14px 20px;
-        font-size: 13px;
         color: #374151;
         border-bottom: 1px solid #E5E7EB;
         vertical-align: top;
-        white-space: nowrap; /* Teks data tidak turun ke bawah */
+        white-space: nowrap; 
     }
 
     .reg-table tr:hover td {
         background-color: #FAFAF9;
     }
 
-    .reg-status {
-        font-weight: 600;
-        font-size: 12px;
-    }
-
-    .reg-status.succeed {
-        color: #65A30D; /* Warna hijau success */
-    }
+    .reg-status { font-weight: 600; }
+    .reg-status.succeed { color: #65A30D; }
 
     /* Pagination */
     .reg-pagination {
@@ -445,7 +523,6 @@
         align-items: center;
         padding: 16px 24px;
         gap: 24px;
-        font-size: 13px;
         color: #6B7280;
     }
 
@@ -458,30 +535,17 @@
         cursor: pointer;
     }
 
-    .reg-page-controls {
-        display: flex;
-        gap: 8px;
-    }
-
+    .reg-page-controls { display: flex; gap: 8px; }
     .reg-page-btn {
         background: none;
         border: none;
         color: #9CA3AF;
         cursor: pointer;
     }
+    .reg-page-btn:not([disabled]):hover { color: #582C0C; }
 
-    .reg-page-btn:not([disabled]):hover {
-        color: #582C0C;
-    }
-
-    /* Responsive adjustments */
     @media (max-width: 1024px) {
-        .reg-layout {
-            flex-direction: column;
-        }
-        .reg-sidebar {
-            width: 100%;
-        }
+        .reg-layout { flex-direction: column; }
         .reg-filter-row {
             flex-direction: column;
             align-items: stretch;
@@ -489,4 +553,52 @@
         }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const customSelects = document.querySelectorAll('.reg-custom-select');
+
+        customSelects.forEach(dropdown => {
+            const trigger = dropdown.querySelector('.reg-select-trigger');
+            const options = dropdown.querySelectorAll('.reg-option');
+            const textDisplay = dropdown.querySelector('.reg-select-text');
+            const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                
+                customSelects.forEach(other => {
+                    if (other !== dropdown) {
+                        other.classList.remove('open');
+                    }
+                });
+                
+                dropdown.classList.toggle('open');
+            });
+
+            options.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    options.forEach(opt => opt.classList.remove('is-selected'));
+                    
+                    this.classList.add('is-selected');
+                    
+                    textDisplay.textContent = this.textContent;
+                    if (hiddenInput) {
+                        hiddenInput.value = this.dataset.value;
+                    }
+                    
+                    dropdown.classList.remove('open');
+                });
+            });
+        });
+
+        window.addEventListener('click', function() {
+            customSelects.forEach(dropdown => {
+                dropdown.classList.remove('open');
+            });
+        });
+    });
+</script>
 @endsection

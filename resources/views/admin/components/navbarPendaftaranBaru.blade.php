@@ -1,5 +1,5 @@
 {{-- Navbar Component --}}
-{{-- Usage: @include('components.navbar', ['title' => 'Page Title']) --}}
+{{-- Usage: @include('admin.components.navbarPendaftaranBaru', ['title' => 'Page Title']) --}}
 
 @props(['title' => ''])
 
@@ -9,30 +9,37 @@
         <div class="navbar-search-group">
             <div class="navbar-search-wrapper">
                 {{-- Search Icon --}}
-                <svg class="navbar-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="navbar-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                
-                <input type="text" class="navbar-search-input" placeholder="Cari Pasien / No MR / No Ktp / No Asuransi...">
-                
+
+                <input type="text" class="navbar-search-input"
+                    placeholder="Cari Pasien / No MR / No Ktp / No Asuransi...">
+
                 {{-- User Icon --}}
-                <svg class="navbar-user-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="navbar-user-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            
+
             {{-- Tombol Pendaftaran Baru --}}
             <div class="navbar-dropdown" id="pendaftaranDropdown">
                 <button class="navbar-btn-primary" onclick="toggleDropdown('pendaftaranMenu')">
                     Pendaftaran Baru
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" style="margin-left: 6px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
                 </button>
                 {{-- Dropdown menu Pendaftaran Baru --}}
-                <div class="navbar-dropdown-menu" id="pendaftaranMenu" style="left: 0; right: auto; top: calc(100% + 4px);">
+                <div class="navbar-dropdown-menu" id="pendaftaranMenu"
+                    style="left: 0; right: auto; top: calc(100% + 4px);">
                     <a href="#" class="dropdown-item">Pasien Baru</a>
                     <a href="#" class="dropdown-item">Pasien Lama</a>
                 </div>
@@ -51,8 +58,9 @@
         <div class="navbar-dropdown" id="clinicDropdown">
             <button class="navbar-dropdown-btn" onclick="toggleDropdown('clinicMenu')">
                 <span>hanglekiu dent...</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
             </button>
             {{-- Dropdown menu --}}
@@ -68,27 +76,31 @@
 
         {{-- Help --}}
         <button class="navbar-icon-btn" title="Bantuan" onclick="alert('Halaman bantuan akan segera hadir!')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
-                <path d="M12 17l0 .01"/>
-                <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                <path d="M12 17l0 .01" />
+                <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
             </svg>
         </button>
 
         {{-- Notifications --}}
         <button class="navbar-icon-btn" title="Notifikasi" onclick="alert('Notifikasi akan segera hadir!')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
-                <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+                <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
             </svg>
         </button>
 
         {{-- Profile --}}
         <button class="navbar-icon-btn" title="Profil" onclick="toggleDropdown('profileMenu')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 13a3 3 0 1 0 0 -6a3 3 0 0 0 0 6"/>
-                <path d="M12 3c7.2 0 9 1.8 9 9c0 7.2 -1.8 9 -9 9c-7.2 0 -9 -1.8 -9 -9c0 -7.2 1.8 -9 9 -9"/>
-                <path d="M6 20.05v-.05a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v.05"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 13a3 3 0 1 0 0 -6a3 3 0 0 0 0 6" />
+                <path d="M12 3c7.2 0 9 1.8 9 9c0 7.2 -1.8 9 -9 9c-7.2 0 -9 -1.8 -9 -9c0 -7.2 1.8 -9 9 -9" />
+                <path d="M6 20.05v-.05a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v.05" />
             </svg>
         </button>
 
@@ -120,7 +132,8 @@
         box-shadow: 0 1px 4px rgba(88, 44, 12, 0.06);
         border-bottom: 1px solid #E5D6C5;
         font-family: 'Instrument Sans', sans-serif;
-        position: relative; /* Penting untuk dropdown agar tidak tertutup konten bawah */
+        position: relative;
+        /* Penting untuk dropdown agar tidak tertutup konten bawah */
         z-index: 50;
     }
 
@@ -207,7 +220,7 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: #6B513E;
+        background: #582C0C;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -271,8 +284,15 @@
     }
 
     @keyframes dropdownFade {
-        from { opacity: 0; transform: translateY(-4px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .dropdown-item {
@@ -381,7 +401,8 @@
             padding: 16px;
         }
 
-        .navbar-left, .navbar-search-group {
+        .navbar-left,
+        .navbar-search-group {
             width: 100%;
         }
 
@@ -389,7 +410,7 @@
             width: 100%;
             max-width: none;
         }
-        
+
         .navbar-right {
             width: 100%;
             justify-content: flex-end;
@@ -445,7 +466,7 @@
         .navbar-dropdown-menu {
             right: -16px;
         }
-        
+
         #pendaftaranMenu {
             left: -16px;
             right: auto;
@@ -466,7 +487,8 @@
     }
 
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar-dropdown') && !e.target.closest('.navbar-icon-btn') && !e.target.closest('.navbar-search-group')) {
+        if (!e.target.closest('.navbar-dropdown') && !e.target.closest('.navbar-icon-btn') && !e.target.closest(
+                '.navbar-search-group')) {
             document.querySelectorAll('.navbar-dropdown-menu').forEach(m => m.classList.remove('show'));
         }
     });

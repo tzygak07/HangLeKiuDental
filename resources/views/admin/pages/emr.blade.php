@@ -1,0 +1,364 @@
+@extends('admin.layout.admin')
+@section('title', 'Electronic Medical Record')
+
+@section('navbar')
+    @include('admin.components.navbarSearch', ['title' => 'Electronic Medical Record'])
+@endsection
+
+@section('content')
+    <div class="emr-container">
+        
+        <div class="emr-header">
+            <div class="emr-title-area">
+                <h1 class="emr-title">Electronic Medical Record</h1>
+                <p class="emr-subtitle">hanglekiu dental specialist</p>
+            </div>
+
+            <div class="emr-status-legend">
+                <span class="emr-status-item"><span class="emr-dot" style="background-color: #EF4444;"></span> Pending</span>
+                <span class="emr-status-item"><span class="emr-dot" style="background-color: #F59E0B;"></span> Confirmed</span>
+                <span class="emr-status-item"><span class="emr-dot" style="background-color: #8B5CF6;"></span> Waiting</span>
+                <span class="emr-status-item"><span class="emr-dot" style="background-color: #3B82F6;"></span> Engaged</span>
+                <span class="emr-status-item"><span class="emr-dot" style="background-color: #84CC16;"></span> Succeed</span>
+            </div>
+
+            <div class="emr-header-actions">
+                <button class="emr-icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="emr-action-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.25 7.034V3.375" /></svg>
+                </button>
+                <button class="emr-icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="emr-action-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M21.015 4.353v4.992" /></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="emr-layout">
+            <div class="emr-sidebar">
+                
+                <div class="emr-filter-box" id="customFilterDropdown">
+                    <div class="emr-select-trigger">
+                        <span class="emr-select-text">Hari Ini</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="emr-select-icon" viewBox="0 0 24 24" fill="none" stroke="#C58F59" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+
+                    <div class="emr-options">
+                        <div class="emr-option is-selected" data-value="hari_ini">Hari Ini</div>
+                        <div class="emr-option" data-value="semua">Semua</div>
+                    </div>
+
+                    <input type="hidden" name="filter_waktu" id="filterWaktuVal" value="hari_ini">
+                </div>
+
+                <div class="emr-queue-alert">
+                    Tidak ada antrean pasien
+                </div>
+            </div>
+
+            <div class="emr-main">
+                <div class="emr-empty-state">
+                    <img src="{{ asset('../images/empty-queue.png') }}" alt="Tidak ada antrean" class="emr-empty-img">
+                    <h2 class="emr-empty-title">Tidak ada antrean pasien hari ini</h2>
+                    <p class="emr-empty-desc">Gunakan search bar atau advance search pada pojok kiri atas untuk mencari pasien.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+        .emr-container {
+            padding: 0 16px 24px 16px;
+            position: relative;
+            min-height: calc(100vh - 100px);
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .emr-container * {
+            font-size: 13px;
+        }
+
+        /* ===== HEADER AREA ===== */
+        .emr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .emr-title {
+            font-size: 30px !important;
+            font-weight: 700;
+            color: #582C0C;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .emr-subtitle {
+            color: #C58F59;
+            margin: 4px 0 0 0;
+            font-weight: 600;
+        }
+
+        .emr-status-legend {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .emr-status-item {
+            color: #6B513E;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .emr-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* ===== TOMBOL AKSI KANAN ATAS ===== */
+        .emr-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .emr-icon-btn {
+            background: white;
+            border: 1.5px solid #E5D6C5;
+            color: #C58F59;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .emr-action-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .emr-icon-btn:hover {
+            background: rgba(197, 143, 89, 0.05);
+            border-color: #C58F59;
+        }
+
+        /* ===== LAYOUT & SIDEBAR ===== */
+        .emr-layout {
+            display: flex;
+            gap: 24px;
+        }
+
+        .emr-sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* ===== CUSTOM DROPDOWN CSS ===== */
+        .emr-filter-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .emr-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 12px 16px;
+            background-color: white;
+            border: 1px solid #E5D6C5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .emr-select-trigger:hover {
+            border-color: #C58F59;
+        }
+
+        .emr-option.is-selected {
+            background-color: rgba(197, 143, 89, 0.15);
+            color: #582C0C;
+            font-weight: 700;
+        }
+
+        .emr-filter-box.open .emr-select-trigger {
+            border-color: #C58F59;
+            box-shadow: 0 0 0 3px rgba(197, 143, 89, 0.15); 
+        }
+
+        .emr-select-text {
+            font-weight: 600;
+            color: #582C0C;
+        }
+
+        .emr-select-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .emr-filter-box.open .emr-select-icon {
+            transform: rotate(180deg);
+        }
+
+        .emr-options {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #E5D6C5;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(88, 44, 12, 0.08);
+            padding: 6px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+
+        .emr-filter-box.open .emr-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .emr-option {
+            padding: 10px 14px;
+            font-weight: 500;
+            color: #6B513E;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 2px;
+        }
+
+        .emr-option:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Warna Cream pas dihover */
+        .emr-option:hover {
+            background-color: #FDF8F4; 
+            color: #582C0C;
+            font-weight: 600;
+        }
+
+        /* ===== ALERT ANTREAN ===== */
+        .emr-queue-alert {
+            background: white;
+            border: 1px solid #E5D6C5;
+            border-left: 4px solid #EF4444;
+            color: #EF4444;
+            padding: 14px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(88, 44, 12, 0.04);
+        }
+
+        /* ===== MAIN AREA (EMPTY STATE) ===== */
+        .emr-main {
+            flex: 1;
+            background: #FCFAF8;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            border: 1px dashed #C58F59;
+        }
+
+        .emr-empty-state {
+            text-align: center;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .emr-empty-img {
+            width: 500px;
+            height: auto;
+            margin: 0 auto 24px;
+        }
+
+        .emr-empty-title {
+            font-size: 18.75px; 
+            font-weight: 700;
+            color: #582C0C;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+
+        .emr-empty-desc {
+            color: #6B513E;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .emr-layout {
+                flex-direction: column;
+            }
+
+            .emr-sidebar {
+                width: 100%;
+            }
+
+            .emr-status-legend {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+
+    {{-- SCRIPT CUSTOM DROPDOWN --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdown = document.getElementById('customFilterDropdown');
+            const trigger = dropdown.querySelector('.emr-select-trigger');
+            const options = dropdown.querySelectorAll('.emr-option');
+            const textDisplay = dropdown.querySelector('.emr-select-text');
+            const hiddenInput = document.getElementById('filterWaktuVal');
+
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+            });
+
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    options.forEach(opt => opt.classList.remove('is-selected'));
+                    
+                    this.classList.add('is-selected');
+                    
+                    textDisplay.textContent = this.textContent;
+                    hiddenInput.value = this.dataset.value;
+                    
+                    dropdown.classList.remove('open');
+                });
+            });
+
+            window.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+        });
+    </script>
+@endsection

@@ -80,7 +80,7 @@
 </head>
 <body>
     
-    @include('components.sidebar')
+    @include('admin.components.sidebar')
 
     <main class="admin-content">
         

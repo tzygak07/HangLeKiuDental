@@ -1,5 +1,5 @@
 {{-- Navbar Component --}}
-{{-- Usage: @include('components.navbar', ['title' => 'Page Title']) --}}
+{{-- Usage: @include('admin.components.navbarSearch', ['title' => 'Page Title']) --}}
 
 @props(['title' => ''])
 
@@ -140,7 +140,7 @@
 
     .navbar-search-input {
         width: 320px;
-        padding: 8px 36px; /* Padding dikurangi agar tinggi tidak melar (tinggi persis 36px) */
+        padding: 8px 36px;
         border: 1px solid #E5D6C5;
         border-radius: 20px;
         font-size: 13px;
@@ -162,7 +162,7 @@
         background-color: #C58F59;
         color: white;
         border: none;
-        padding: 8px 16px; /* Padding dikurangi agar sejajar (tinggi persis 36px) */
+        padding: 8px 16px; 
         border-radius: 6px;
         font-size: 13px;
         font-weight: 600;
@@ -186,10 +186,10 @@
 
     /* HDS Logo */
     .navbar-hds-logo {
-        width: 36px; /* Tinggi referensi (36px) */
+        width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: #6B513E;
+        background: #582C0C;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -291,13 +291,13 @@
 
     .dropdown-header strong {
         display: block;
-        font-size: 14px;
+        font-size: 13px;
         color: #582C0C;
     }
 
     .dropdown-header small {
         display: block;
-        font-size: 12px;
+        font-size: 13px;
         color: #C58F59;
         margin-top: 2px;
     }
@@ -389,7 +389,7 @@
 
         .navbar-dropdown-btn {
             padding: 6px 10px;
-            font-size: 11px;
+            font-size: 13px;
             border-radius: 16px;
         }
 

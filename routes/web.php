@@ -31,14 +31,15 @@ Route::middleware('auth')->group(function () {
 
     // ADMIN
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard',    fn() => view('admin.dashboard'))->name('dashboard');
+        Route::get('/dashboard',    fn() => view('admin.pages.dashboard'))->name('dashboard');
         Route::get('/outpatient',   [AppointmentController::class, 'schedule'])->name('outpatient');
-        Route::get('/registration', fn() => view('admin.registration'))->name('registration');
-        Route::get('/emr',          fn() => view('admin.emr'))->name('emr');
-        Route::get('/pharmacy',     fn() => view('admin.pharmacy'))->name('pharmacy');
-        Route::get('/cashier',      fn() => view('admin.cashier'))->name('cashier');
-        Route::get('/profile',      fn() => view('admin.profile'))->name('profile');
-        Route::get('/messages',     fn() => view('admin.messages'))->name('messages');
+        Route::get('/registration', fn() => view('admin.pages.registration'))->name('registration');
+        Route::get('/emr',          fn() => view('admin.pages.emr'))->name('emr');
+        Route::get('/pharmacy',     fn() => view('admin.layout.pharmacy'))->name('pharmacy');
+        Route::get('/cashier',      fn() => view('admin.pages.cashier'))->name('cashier');
+        Route::get('/profile',      fn() => view('admin.pages.profile'))->name('profile');
+        Route::get('/messages',     fn() => view('admin.pages.messages'))->name('messages');
+        Route::get('/office',       fn() => view('admin.pages.office'))->name('office');
 
         // Update status appointment (dipanggil dari /admin/appointments/{id}/status)
         Route::patch('/appointments/{appointment}/status', [AppointmentController::class, 'updateStatus'])
@@ -47,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
     // USER
     Route::middleware('role:user')->prefix('user')->name('user.')->group(function () {
-        Route::get('/dashboard', fn() => view('user.dashboard'))->name('dashboard');
+        Route::get('/dashboard', fn() => view('user.pages.dashboard'))->name('dashboard');
     });
 
     Route::post('/registration/store', function () {

@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('admin.layout.admin')
 @section('title', 'Pesan')
 
 @section('navbar')
-    @include('components.navbar', ['title' => 'Message Center'])
+    @include('admin.components.navbar', ['title' => 'Message Center'])
 @endsection
 
 @section('content')

@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('admin.layout.admin')
 @section('title', 'Profil')
 
 @section('navbar')
-    @include('components.navbar', ['title' => 'Profil'])
+    @include('admin.components.navbar', ['title' => 'Profil'])
 @endsection
 
 @section('content')

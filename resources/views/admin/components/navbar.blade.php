@@ -1,5 +1,5 @@
 {{-- Navbar Component --}}
-{{-- Usage: @include('components.navbar', ['title' => 'Page Title']) --}}
+{{-- Usage: @include('admin.components.navbar', ['title' => 'Page Title']) --}}
 
 @props(['title' => ''])
 

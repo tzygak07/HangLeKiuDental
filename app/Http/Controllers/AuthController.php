@@ -13,22 +13,22 @@ class AuthController extends Controller
 
     public function showLogin()
     {
-        return view('auth.login');
+        return view('user.pages.login');
     }
 
     public function showRegister()
     {
-        return view('auth.register');
+        return view('user.pages.register');
     }
 
     public function showAdminLogin()
     {
-        return view('auth.admin-login');
+        return view('admin.pages.admin-login');
     }
 
     public function showAdminRegister()
     {
-        return view('auth.admin-register');
+        return view('admin.pages.admin-register');
     }
 
     // ── USER LOGIN ────────────────────────────────────────────

@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('admin.layout.admin')
 @section('title', 'Dashboard')
 
 @section('navbar')
-    @include('components.navbar', ['title' => 'Dashboard'])
+    @include('admin.components.navbar', ['title' => 'Dashboard'])
 @endsection
 
 @section('content')
@@ -277,13 +277,13 @@
         box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
     .dash-card-title {
-        font-size: 15px;
+        font-size: 13px;
         font-weight: 700;
         color: #582C0C;
     }
     .info-icon {
         color: #9CA3AF;
-        font-size: 14px;
+        font-size: 13px;
         margin-left: 6px;
         cursor: help;
     }
@@ -306,7 +306,7 @@
         margin-bottom: 24px;
     }
     .dash-chart-number {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         color: #582C0C;
         margin-right: 12px;
@@ -316,7 +316,7 @@
     .dash-trend {
         padding: 4px 8px;
         border-radius: 4px;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 700;
         display: inline-flex;
         align-items: center;
@@ -339,7 +339,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        font-size: 11px;
+        font-size: 13px;
         color: #9CA3AF;
         padding-bottom: 24px;
         text-align: right;
@@ -376,7 +376,7 @@
         transition: height 0.5s ease;
     }
     .bar-group span {
-        font-size: 11px;
+        font-size: 13px;
         color: #6B7280;
         margin-top: 8px;
         position: absolute;
@@ -410,7 +410,7 @@
         color: #2563EB;
         padding: 4px 12px;
         border-radius: 12px;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 600;
     }
     .dash-donut-content {
@@ -437,15 +437,15 @@
         align-items: center;
         justify-content: center;
     }
-    .donut-number { font-size: 24px; font-weight: 700; color: #582C0C; line-height: 1; }
-    .donut-label { font-size: 12px; color: #6B513E; }
+    .donut-number { font-size: 18.75px; font-weight: 700; color: #582C0C; line-height: 1; }
+    .donut-label { font-size: 13px; color: #6B513E; }
     .dash-donut-legend {
         display: flex;
         flex-direction: column;
         gap: 12px;
     }
     .legend-item {
-        font-size: 12px;
+        font-size: 13px;
         color: #6B7280;
         display: flex;
         align-items: center;
@@ -460,7 +460,7 @@
     }
     .stat-header {
         color: #C58F59;
-        font-size: 14px;
+        font-size: 13px;
         margin-bottom: 8px;
     }
     .stat-title {
@@ -475,12 +475,12 @@
         gap: 13px;
     }
     .stat-value {
-        font-size: 20px;
+        font-size: 18.75px;
         font-weight: 700;
         color: #111827;
     }
     .stat-desc {
-        font-size: 11px;
+        font-size: 13px;
         color: #9CA3AF;
         margin: 6px 0 0 0;
     }
@@ -502,7 +502,7 @@
         margin-bottom: 16px;
     }
     .dash-card-subtitle {
-        font-size: 11px;
+        font-size: 13px;
         color: #9CA3AF;
         margin: 4px 0 0 0;
     }
@@ -516,7 +516,7 @@
         background: none;
         border: none;
         color: #582C0C;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         cursor: pointer;
         display: flex;
@@ -533,7 +533,7 @@
         text-align: left;
     }
     .dash-table th {
-        font-size: 12px;
+        font-size: 13px;
         color: #6B7280;
         font-weight: 500;
         padding: 12px 8px;
@@ -552,7 +552,7 @@
         align-items: center;
         padding-top: 16px;
         gap: 20px;
-        font-size: 12px;
+        font-size: 13px;
         color: #6B7280;
     }
     .pagination-icons i { margin-left: 12px; cursor: pointer; }

@@ -19,7 +19,7 @@ class AppointmentController extends Controller
         $doctors    = Doctor::active()->orderBy('name')->get();
         $treatments = Treatment::active()->orderBy('name')->get();
 
-        return view('user.appointments.create', compact('doctors', 'treatments'));
+        return view('user.components.create', compact('doctors', 'treatments'));
     }
 
     /**
@@ -64,7 +64,7 @@ class AppointmentController extends Controller
      */
     public function success()
     {
-        return view('user.appointments.success');
+        return view('user.components.success');
     }
 
     /**
@@ -100,7 +100,7 @@ class AppointmentController extends Controller
             $start->addMinutes(15);
         }
 
-        return view('admin.outpatient', compact('doctors', 'schedule', 'timeSlots', 'date', 'carbon'));
+        return view('admin.pages.outpatient', compact('doctors', 'schedule', 'timeSlots', 'date', 'carbon'));
     }
 
     /**
